@@ -1,0 +1,791 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Monero Daemon RPC API",
+    "description": "JSON-RPC and HTTP API exposed by the monerod daemon for querying blockchain data, managing peer connections, retrieving block and transaction information, estimating fees, submitting mined blocks, and controlling node-level operations on the Monero network.",
+    "version": "0.18",
+    "contact": {
+      "name": "Monero Community",
+      "url": "https://www.getmonero.org/community/hangouts/"
+    },
+    "license": {
+      "name": "BSD-3-Clause",
+      "url": "https://github.com/monero-project/monero/blob/master/LICENSE"
+    }
+  },
+  "externalDocs": {
+    "description": "Monero Daemon RPC Documentation",
+    "url": "https://docs.getmonero.org/rpc-library/monerod-rpc/"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:18081",
+      "description": "Local monerod mainnet node"
+    },
+    {
+      "url": "http://localhost:28081",
+      "description": "Local monerod testnet node"
+    }
+  ],
+  "paths": {
+    "/json_rpc": {
+      "post": {
+        "summary": "JSON-RPC endpoint",
+        "description": "All JSON-RPC methods are dispatched through this single endpoint using the JSON-RPC 2.0 protocol. Set the method field to the desired RPC method name.",
+        "operationId": "jsonRpc",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/JsonRpcRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "JSON-RPC response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JsonRpcResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["JSON-RPC"]
+      }
+    },
+    "/get_height": {
+      "post": {
+        "summary": "Get current blockchain height",
+        "description": "Returns the current node's blockchain height.",
+        "operationId": "getHeight",
+        "responses": {
+          "200": {
+            "description": "Current blockchain height",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "height": { "type": "integer", "description": "Current blockchain height" },
+                    "status": { "type": "string", "description": "Status of the call (OK)" },
+                    "untrusted": { "type": "boolean", "description": "If the node is not synced" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Node Info"]
+      }
+    },
+    "/get_transactions": {
+      "post": {
+        "summary": "Get transactions by IDs",
+        "description": "Looks up one or more transactions by their IDs.",
+        "operationId": "getTransactions",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "txs_hashes": {
+                    "type": "array",
+                    "items": { "type": "string" },
+                    "description": "List of transaction hashes to look up"
+                  },
+                  "decode_as_json": {
+                    "type": "boolean",
+                    "description": "If true, return transaction data as JSON"
+                  },
+                  "prune": {
+                    "type": "boolean",
+                    "description": "Prune transaction data"
+                  }
+                },
+                "required": ["txs_hashes"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transaction data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "txs": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/TransactionEntry" }
+                    },
+                    "txs_as_hex": { "type": "array", "items": { "type": "string" } },
+                    "txs_as_json": { "type": "array", "items": { "type": "string" } },
+                    "missed_tx": { "type": "array", "items": { "type": "string" } },
+                    "status": { "type": "string" },
+                    "untrusted": { "type": "boolean" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Transactions"]
+      }
+    },
+    "/get_alt_blocks_hashes": {
+      "post": {
+        "summary": "Get alternative chain block hashes",
+        "description": "Retrieves hashes of the alternative chains seen by the node.",
+        "operationId": "getAltBlocksHashes",
+        "responses": {
+          "200": {
+            "description": "Alternative block hashes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "blks_hashes": { "type": "array", "items": { "type": "string" } },
+                    "status": { "type": "string" },
+                    "untrusted": { "type": "boolean" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Blockchain"]
+      }
+    },
+    "/is_key_image_spent": {
+      "post": {
+        "summary": "Check if key images are spent",
+        "description": "Checks if outputs have been spent using key images.",
+        "operationId": "isKeyImageSpent",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "key_images": {
+                    "type": "array",
+                    "items": { "type": "string" },
+                    "description": "List of key images to check"
+                  }
+                },
+                "required": ["key_images"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Spent status for each key image",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "spent_status": {
+                      "type": "array",
+                      "items": { "type": "integer" },
+                      "description": "0: unspent, 1: spent in blockchain, 2: spent in tx pool"
+                    },
+                    "status": { "type": "string" },
+                    "untrusted": { "type": "boolean" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Transactions"]
+      }
+    },
+    "/send_raw_transaction": {
+      "post": {
+        "summary": "Submit raw transaction",
+        "description": "Broadcasts a raw transaction to the network.",
+        "operationId": "sendRawTransaction",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "tx_as_hex": { "type": "string", "description": "Transaction as hexadecimal string" },
+                  "do_not_relay": { "type": "boolean", "description": "If true, do not relay to network" }
+                },
+                "required": ["tx_as_hex"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transaction submission result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "double_spend": { "type": "boolean" },
+                    "fee_too_low": { "type": "boolean" },
+                    "invalid_input": { "type": "boolean" },
+                    "invalid_output": { "type": "boolean" },
+                    "low_mixin": { "type": "boolean" },
+                    "not_rct": { "type": "boolean" },
+                    "not_relayed": { "type": "boolean" },
+                    "overspend": { "type": "boolean" },
+                    "reason": { "type": "string" },
+                    "status": { "type": "string" },
+                    "too_big": { "type": "boolean" },
+                    "too_few_outputs": { "type": "boolean" },
+                    "untrusted": { "type": "boolean" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Transactions"]
+      }
+    },
+    "/start_mining": {
+      "post": {
+        "summary": "Start mining on the daemon",
+        "description": "Starts mining on the daemon.",
+        "operationId": "startMining",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "do_background_mining": { "type": "boolean" },
+                  "ignore_battery": { "type": "boolean" },
+                  "miner_address": { "type": "string", "description": "Mining reward address" },
+                  "threads_count": { "type": "integer", "description": "Number of mining threads" }
+                },
+                "required": ["do_background_mining", "ignore_battery", "miner_address", "threads_count"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Mining start result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Mining"]
+      }
+    },
+    "/stop_mining": {
+      "post": {
+        "summary": "Stop mining on the daemon",
+        "description": "Stops mining on the daemon.",
+        "operationId": "stopMining",
+        "responses": {
+          "200": {
+            "description": "Mining stop result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Mining"]
+      }
+    },
+    "/mining_status": {
+      "post": {
+        "summary": "Get mining status",
+        "description": "Gets the mining status of the daemon.",
+        "operationId": "miningStatus",
+        "responses": {
+          "200": {
+            "description": "Current mining status",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "active": { "type": "boolean" },
+                    "address": { "type": "string" },
+                    "bg_idle_threshold": { "type": "integer" },
+                    "bg_ignore_battery": { "type": "boolean" },
+                    "bg_min_idle_seconds": { "type": "integer" },
+                    "bg_target": { "type": "integer" },
+                    "block_reward": { "type": "integer" },
+                    "block_target": { "type": "integer" },
+                    "difficulty": { "type": "integer" },
+                    "difficulty_top64": { "type": "integer" },
+                    "is_background_mining_enabled": { "type": "boolean" },
+                    "pow_algorithm": { "type": "string" },
+                    "speed": { "type": "integer" },
+                    "threads_count": { "type": "integer" },
+                    "wide_difficulty": { "type": "string" },
+                    "status": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Mining"]
+      }
+    },
+    "/get_net_stats": {
+      "post": {
+        "summary": "Get network statistics",
+        "description": "Returns network statistics for the node.",
+        "operationId": "getNetStats",
+        "responses": {
+          "200": {
+            "description": "Network statistics",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "start_time": { "type": "integer" },
+                    "total_bytes_in": { "type": "integer" },
+                    "total_bytes_out": { "type": "integer" },
+                    "total_in": { "type": "integer" },
+                    "total_out": { "type": "integer" },
+                    "status": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Network"]
+      }
+    },
+    "/get_limit": {
+      "post": {
+        "summary": "Get bandwidth limits",
+        "description": "Returns current download and upload bandwidth limits.",
+        "operationId": "getLimit",
+        "responses": {
+          "200": {
+            "description": "Bandwidth limits",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "limit_down": { "type": "integer", "description": "Download limit in kB/s" },
+                    "limit_up": { "type": "integer", "description": "Upload limit in kB/s" },
+                    "status": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Network"]
+      }
+    },
+    "/get_peer_list": {
+      "post": {
+        "summary": "Get peer list",
+        "description": "Returns the peer list connected to the node.",
+        "operationId": "getPeerList",
+        "responses": {
+          "200": {
+            "description": "List of peers",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "gray_list": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/PeerInfo" }
+                    },
+                    "white_list": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/PeerInfo" }
+                    },
+                    "status": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Network"]
+      }
+    },
+    "/get_public_nodes": {
+      "post": {
+        "summary": "Get public nodes",
+        "description": "Returns a list of public nodes available on the network.",
+        "operationId": "getPublicNodes",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "gray": { "type": "boolean", "description": "Include gray list peers" },
+                  "white": { "type": "boolean", "description": "Include white list peers" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "List of public nodes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "gray": { "type": "array", "items": { "$ref": "#/components/schemas/PublicNode" } },
+                    "white": { "type": "array", "items": { "$ref": "#/components/schemas/PublicNode" } },
+                    "status": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Network"]
+      }
+    },
+    "/get_transaction_pool": {
+      "post": {
+        "summary": "Get transaction pool",
+        "description": "Shows information about valid transactions seen by the node but not yet mined into a block.",
+        "operationId": "getTransactionPool",
+        "responses": {
+          "200": {
+            "description": "Transaction pool contents",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "spent_key_images": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id_hash": { "type": "string" },
+                          "txs_hashes": { "type": "array", "items": { "type": "string" } }
+                        }
+                      }
+                    },
+                    "transactions": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/TxPoolEntry" }
+                    },
+                    "status": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Transaction Pool"]
+      }
+    },
+    "/get_transaction_pool_stats": {
+      "post": {
+        "summary": "Get transaction pool statistics",
+        "description": "Returns statistics about the transaction pool.",
+        "operationId": "getTransactionPoolStats",
+        "responses": {
+          "200": {
+            "description": "Transaction pool statistics",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "pool_stats": {
+                      "type": "object",
+                      "properties": {
+                        "bytes_max": { "type": "integer" },
+                        "bytes_med": { "type": "integer" },
+                        "bytes_min": { "type": "integer" },
+                        "bytes_total": { "type": "integer" },
+                        "fee_total": { "type": "integer" },
+                        "histo": { "type": "array", "items": { "type": "object" } },
+                        "histo_98pc": { "type": "integer" },
+                        "num_10m": { "type": "integer" },
+                        "num_double_spends": { "type": "integer" },
+                        "num_failing": { "type": "integer" },
+                        "num_not_relayed": { "type": "integer" },
+                        "oldest": { "type": "integer" },
+                        "txs_total": { "type": "integer" }
+                      }
+                    },
+                    "status": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Transaction Pool"]
+      }
+    },
+    "/get_outs": {
+      "post": {
+        "summary": "Get outputs",
+        "description": "Get outputs associated with transaction outputs.",
+        "operationId": "getOuts",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "outputs": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "amount": { "type": "integer" },
+                        "index": { "type": "integer" }
+                      }
+                    }
+                  },
+                  "get_txid": { "type": "boolean" }
+                },
+                "required": ["outputs"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Output data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "outs": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "height": { "type": "integer" },
+                          "key": { "type": "string" },
+                          "mask": { "type": "string" },
+                          "txid": { "type": "string" },
+                          "unlocked": { "type": "boolean" }
+                        }
+                      }
+                    },
+                    "status": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Outputs"]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "JsonRpcRequest": {
+        "type": "object",
+        "required": ["jsonrpc", "id", "method"],
+        "properties": {
+          "jsonrpc": { "type": "string", "enum": ["2.0"] },
+          "id": { "type": "string", "example": "0" },
+          "method": {
+            "type": "string",
+            "description": "The JSON-RPC method to invoke",
+            "enum": [
+              "add_aux_pow",
+              "banned",
+              "calc_pow",
+              "flush_cache",
+              "flush_txpool",
+              "generateblocks",
+              "get_alternate_chains",
+              "get_bans",
+              "get_block",
+              "get_block_count",
+              "get_block_header_by_hash",
+              "get_block_header_by_height",
+              "get_block_headers_range",
+              "get_block_template",
+              "get_coinbase_tx_sum",
+              "get_connections",
+              "get_fee_estimate",
+              "get_info",
+              "get_last_block_header",
+              "get_miner_data",
+              "get_output_distribution",
+              "get_output_histogram",
+              "get_txpool_backlog",
+              "get_version",
+              "hard_fork_info",
+              "on_get_block_hash",
+              "prune_blockchain",
+              "relay_tx",
+              "set_bans",
+              "submit_block",
+              "sync_info"
+            ]
+          },
+          "params": {
+            "type": "object",
+            "description": "Method-specific parameters"
+          }
+        }
+      },
+      "JsonRpcResponse": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "jsonrpc": { "type": "string" },
+          "result": { "type": "object", "description": "Method-specific result" },
+          "error": {
+            "type": "object",
+            "properties": {
+              "code": { "type": "integer" },
+              "message": { "type": "string" }
+            }
+          }
+        }
+      },
+      "BlockHeader": {
+        "type": "object",
+        "properties": {
+          "block_size": { "type": "integer" },
+          "block_weight": { "type": "integer" },
+          "cumulative_difficulty": { "type": "integer" },
+          "cumulative_difficulty_top64": { "type": "integer" },
+          "depth": { "type": "integer" },
+          "difficulty": { "type": "integer" },
+          "difficulty_top64": { "type": "integer" },
+          "hash": { "type": "string" },
+          "height": { "type": "integer" },
+          "long_term_weight": { "type": "integer" },
+          "major_version": { "type": "integer" },
+          "miner_tx_hash": { "type": "string" },
+          "minor_version": { "type": "integer" },
+          "nonce": { "type": "integer" },
+          "num_txes": { "type": "integer" },
+          "orphan_status": { "type": "boolean" },
+          "pow_hash": { "type": "string" },
+          "prev_hash": { "type": "string" },
+          "reward": { "type": "integer" },
+          "timestamp": { "type": "integer" },
+          "wide_cumulative_difficulty": { "type": "string" },
+          "wide_difficulty": { "type": "string" }
+        }
+      },
+      "TransactionEntry": {
+        "type": "object",
+        "properties": {
+          "as_hex": { "type": "string" },
+          "as_json": { "type": "string" },
+          "block_height": { "type": "integer" },
+          "block_timestamp": { "type": "integer" },
+          "confirmations": { "type": "integer" },
+          "double_spend_seen": { "type": "boolean" },
+          "in_pool": { "type": "boolean" },
+          "output_indices": { "type": "array", "items": { "type": "integer" } },
+          "prunable_as_hex": { "type": "string" },
+          "prunable_hash": { "type": "string" },
+          "pruned_as_hex": { "type": "string" },
+          "tx_hash": { "type": "string" }
+        }
+      },
+      "TxPoolEntry": {
+        "type": "object",
+        "properties": {
+          "blob_size": { "type": "integer" },
+          "do_not_relay": { "type": "boolean" },
+          "double_spend_seen": { "type": "boolean" },
+          "fee": { "type": "integer" },
+          "id_hash": { "type": "string" },
+          "kept_by_block": { "type": "boolean" },
+          "last_failed_height": { "type": "integer" },
+          "last_failed_id_hash": { "type": "string" },
+          "last_relayed_time": { "type": "integer" },
+          "max_used_block_height": { "type": "integer" },
+          "max_used_block_id_hash": { "type": "string" },
+          "receive_time": { "type": "integer" },
+          "relayed": { "type": "boolean" },
+          "tx_blob": { "type": "string" },
+          "tx_json": { "type": "string" },
+          "weight": { "type": "integer" }
+        }
+      },
+      "PeerInfo": {
+        "type": "object",
+        "properties": {
+          "host": { "type": "string" },
+          "id": { "type": "integer" },
+          "ip": { "type": "string" },
+          "last_seen": { "type": "integer" },
+          "port": { "type": "integer" },
+          "rpc_credits_per_hash": { "type": "integer" },
+          "rpc_port": { "type": "integer" }
+        }
+      },
+      "PublicNode": {
+        "type": "object",
+        "properties": {
+          "host": { "type": "string" },
+          "last_seen": { "type": "integer" },
+          "rpc_credits_per_hash": { "type": "integer" },
+          "rpc_port": { "type": "integer" }
+        }
+      }
+    }
+  },
+  "tags": [
+    { "name": "JSON-RPC", "description": "JSON-RPC 2.0 dispatch endpoint" },
+    { "name": "Blockchain", "description": "Blockchain data and block operations" },
+    { "name": "Transactions", "description": "Transaction submission and lookup" },
+    { "name": "Transaction Pool", "description": "Mempool / transaction pool operations" },
+    { "name": "Mining", "description": "Mining control and block template operations" },
+    { "name": "Network", "description": "Peer and network management" },
+    { "name": "Outputs", "description": "Output and key image operations" },
+    { "name": "Node Info", "description": "Node status and info" }
+  ]
+}

@@ -1,0 +1,448 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Monero Wallet RPC API",
+    "description": "JSON-RPC API exposed by monero-wallet-rpc for creating and managing wallets, sending and receiving XMR, generating transaction proofs, handling multisignature workflows, exporting key images, and controlling wallet synchronization with the Monero blockchain. All monetary amounts are in atomic units where 1 XMR = 1e12 atomic units.",
+    "version": "0.18",
+    "contact": {
+      "name": "Monero Community",
+      "url": "https://www.getmonero.org/community/hangouts/"
+    },
+    "license": {
+      "name": "BSD-3-Clause",
+      "url": "https://github.com/monero-project/monero/blob/master/LICENSE"
+    }
+  },
+  "externalDocs": {
+    "description": "Monero Wallet RPC Documentation",
+    "url": "https://docs.getmonero.org/rpc-library/wallet-rpc/"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:18082",
+      "description": "Local monero-wallet-rpc mainnet"
+    },
+    {
+      "url": "http://localhost:28082",
+      "description": "Local monero-wallet-rpc testnet"
+    }
+  ],
+  "paths": {
+    "/json_rpc": {
+      "post": {
+        "summary": "Wallet JSON-RPC endpoint",
+        "description": "All wallet JSON-RPC methods are dispatched through this single endpoint using the JSON-RPC 2.0 protocol.",
+        "operationId": "walletJsonRpc",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/JsonRpcRequest" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "JSON-RPC response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/JsonRpcResponse" }
+              }
+            }
+          }
+        },
+        "tags": ["JSON-RPC"]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "JsonRpcRequest": {
+        "type": "object",
+        "required": ["jsonrpc", "id", "method"],
+        "properties": {
+          "jsonrpc": { "type": "string", "enum": ["2.0"] },
+          "id": { "type": "string", "example": "0" },
+          "method": {
+            "type": "string",
+            "description": "The wallet RPC method to invoke",
+            "enum": [
+              "add_address_book",
+              "auto_refresh",
+              "change_wallet_password",
+              "check_reserve_proof",
+              "check_spend_proof",
+              "check_tx_key",
+              "check_tx_proof",
+              "close_wallet",
+              "create_account",
+              "create_address",
+              "create_wallet",
+              "delete_address_book",
+              "describe_transfer",
+              "edit_address_book",
+              "estimate_tx_size_and_weight",
+              "exchange_multisig_keys",
+              "export_key_images",
+              "export_multisig_info",
+              "export_outputs",
+              "freeze",
+              "frozen",
+              "generate_from_keys",
+              "get_account_tags",
+              "get_accounts",
+              "get_address",
+              "get_address_book",
+              "get_address_index",
+              "get_attribute",
+              "get_balance",
+              "get_bulk_payments",
+              "get_default_fee_priority",
+              "get_height",
+              "get_languages",
+              "get_payments",
+              "get_reserve_proof",
+              "get_spend_proof",
+              "get_transfer_by_txid",
+              "get_transfers",
+              "get_tx_key",
+              "get_tx_notes",
+              "get_tx_proof",
+              "get_version",
+              "import_key_images",
+              "import_multisig_info",
+              "import_outputs",
+              "incoming_transfers",
+              "is_multisig",
+              "label_account",
+              "label_address",
+              "make_integrated_address",
+              "make_multisig",
+              "make_uri",
+              "open_wallet",
+              "parse_uri",
+              "prepare_multisig",
+              "query_key",
+              "refresh",
+              "relay_tx",
+              "rescan_blockchain",
+              "rescan_spent",
+              "restore_deterministic_wallet",
+              "scan_tx",
+              "set_account_tag_description",
+              "set_attribute",
+              "set_daemon",
+              "set_log_level",
+              "set_subaddress_lookahead",
+              "set_tx_notes",
+              "setup_background_sync",
+              "sign",
+              "sign_multisig",
+              "sign_transfer",
+              "split_integrated_address",
+              "start_background_sync",
+              "start_mining",
+              "stop_background_sync",
+              "stop_mining",
+              "stop_wallet",
+              "store",
+              "submit_multisig",
+              "submit_transfer",
+              "sweep_all",
+              "sweep_dust",
+              "sweep_single",
+              "tag_accounts",
+              "thaw",
+              "transfer",
+              "transfer_split",
+              "untag_accounts",
+              "validate_address",
+              "verify"
+            ]
+          },
+          "params": {
+            "type": "object",
+            "description": "Method-specific parameters",
+            "oneOf": [
+              { "$ref": "#/components/schemas/GetBalanceParams" },
+              { "$ref": "#/components/schemas/GetAddressParams" },
+              { "$ref": "#/components/schemas/TransferParams" },
+              { "$ref": "#/components/schemas/GetTransfersParams" },
+              { "$ref": "#/components/schemas/CreateWalletParams" },
+              { "$ref": "#/components/schemas/OpenWalletParams" },
+              { "$ref": "#/components/schemas/SweepAllParams" }
+            ]
+          }
+        }
+      },
+      "JsonRpcResponse": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "jsonrpc": { "type": "string" },
+          "result": { "type": "object", "description": "Method-specific result" },
+          "error": {
+            "type": "object",
+            "properties": {
+              "code": { "type": "integer" },
+              "message": { "type": "string" }
+            }
+          }
+        }
+      },
+      "GetBalanceParams": {
+        "type": "object",
+        "required": ["account_index"],
+        "properties": {
+          "account_index": { "type": "integer", "description": "Account index for which to return balance" },
+          "address_indices": { "type": "array", "items": { "type": "integer" }, "description": "Optional list of subaddress indices" },
+          "all_accounts": { "type": "boolean", "description": "If true, return balance for all accounts" },
+          "strict": { "type": "boolean", "description": "If true, only return the balance if outputs have been confirmed" }
+        }
+      },
+      "GetBalanceResult": {
+        "type": "object",
+        "properties": {
+          "balance": { "type": "integer", "description": "Balance of the wallet in atomic units" },
+          "blocks_to_unlock": { "type": "integer" },
+          "multisig_import_needed": { "type": "boolean" },
+          "per_subaddress": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/SubaddressBalance" }
+          },
+          "time_to_unlock": { "type": "integer" },
+          "unlocked_balance": { "type": "integer", "description": "Unlocked balance in atomic units" }
+        }
+      },
+      "SubaddressBalance": {
+        "type": "object",
+        "properties": {
+          "account_index": { "type": "integer" },
+          "address": { "type": "string" },
+          "address_index": { "type": "integer" },
+          "balance": { "type": "integer" },
+          "blocks_to_unlock": { "type": "integer" },
+          "label": { "type": "string" },
+          "num_unspent_outputs": { "type": "integer" },
+          "time_to_unlock": { "type": "integer" },
+          "unlocked_balance": { "type": "integer" }
+        }
+      },
+      "GetAddressParams": {
+        "type": "object",
+        "required": ["account_index"],
+        "properties": {
+          "account_index": { "type": "integer" },
+          "address_index": { "type": "array", "items": { "type": "integer" } }
+        }
+      },
+      "GetAddressResult": {
+        "type": "object",
+        "properties": {
+          "address": { "type": "string", "description": "The primary address of the account" },
+          "addresses": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "address": { "type": "string" },
+                "address_index": { "type": "integer" },
+                "label": { "type": "string" },
+                "used": { "type": "boolean" }
+              }
+            }
+          }
+        }
+      },
+      "TransferParams": {
+        "type": "object",
+        "required": ["destinations"],
+        "properties": {
+          "destinations": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Destination" },
+            "description": "Array of destinations to transfer to"
+          },
+          "account_index": { "type": "integer", "description": "Source account index" },
+          "subaddr_indices": { "type": "array", "items": { "type": "integer" } },
+          "priority": { "type": "integer", "description": "0: default, 1: unimportant, 2: normal, 3: elevated, 4: priority" },
+          "mixin": { "type": "integer", "description": "Number of outputs from the blockchain to mix with" },
+          "ring_size": { "type": "integer", "description": "Sets the ring_size (mixin+1)" },
+          "unlock_time": { "type": "integer" },
+          "payment_id": { "type": "string" },
+          "get_tx_key": { "type": "boolean" },
+          "do_not_relay": { "type": "boolean" },
+          "get_tx_hex": { "type": "boolean" },
+          "get_tx_metadata": { "type": "boolean" }
+        }
+      },
+      "TransferResult": {
+        "type": "object",
+        "properties": {
+          "amount": { "type": "integer", "description": "Amount transferred in atomic units" },
+          "fee": { "type": "integer", "description": "Fee charged in atomic units" },
+          "multisig_txset": { "type": "string" },
+          "tx_blob": { "type": "string" },
+          "tx_hash": { "type": "string", "description": "Publicly searchable transaction hash" },
+          "tx_key": { "type": "string" },
+          "tx_metadata": { "type": "string" },
+          "unsigned_txset": { "type": "string" },
+          "weight": { "type": "integer" }
+        }
+      },
+      "Destination": {
+        "type": "object",
+        "required": ["amount", "address"],
+        "properties": {
+          "amount": { "type": "integer", "description": "Amount to send in atomic units" },
+          "address": { "type": "string", "description": "Destination Monero address" }
+        }
+      },
+      "GetTransfersParams": {
+        "type": "object",
+        "properties": {
+          "in": { "type": "boolean", "description": "Include incoming transfers" },
+          "out": { "type": "boolean", "description": "Include outgoing transfers" },
+          "pending": { "type": "boolean", "description": "Include pending transfers" },
+          "failed": { "type": "boolean", "description": "Include failed transfers" },
+          "pool": { "type": "boolean", "description": "Include transfers in the mempool" },
+          "filter_by_height": { "type": "boolean" },
+          "min_height": { "type": "integer" },
+          "max_height": { "type": "integer" },
+          "account_index": { "type": "integer" },
+          "subaddr_indices": { "type": "array", "items": { "type": "integer" } },
+          "all_accounts": { "type": "boolean" }
+        }
+      },
+      "GetTransfersResult": {
+        "type": "object",
+        "properties": {
+          "in": { "type": "array", "items": { "$ref": "#/components/schemas/TransferDetail" } },
+          "out": { "type": "array", "items": { "$ref": "#/components/schemas/TransferDetail" } },
+          "pending": { "type": "array", "items": { "$ref": "#/components/schemas/TransferDetail" } },
+          "failed": { "type": "array", "items": { "$ref": "#/components/schemas/TransferDetail" } },
+          "pool": { "type": "array", "items": { "$ref": "#/components/schemas/TransferDetail" } }
+        }
+      },
+      "TransferDetail": {
+        "type": "object",
+        "properties": {
+          "address": { "type": "string" },
+          "amount": { "type": "integer" },
+          "amounts": { "type": "array", "items": { "type": "integer" } },
+          "confirmations": { "type": "integer" },
+          "double_spend_seen": { "type": "boolean" },
+          "fee": { "type": "integer" },
+          "height": { "type": "integer" },
+          "locked": { "type": "boolean" },
+          "note": { "type": "string" },
+          "payment_id": { "type": "string" },
+          "subaddr_index": {
+            "type": "object",
+            "properties": {
+              "major": { "type": "integer" },
+              "minor": { "type": "integer" }
+            }
+          },
+          "subaddr_indices": { "type": "array", "items": { "type": "object" } },
+          "suggested_confirmations_threshold": { "type": "integer" },
+          "timestamp": { "type": "integer" },
+          "txid": { "type": "string" },
+          "type": { "type": "string", "enum": ["in", "out", "pending", "failed", "pool"] },
+          "unlock_time": { "type": "integer" }
+        }
+      },
+      "CreateWalletParams": {
+        "type": "object",
+        "required": ["filename", "language"],
+        "properties": {
+          "filename": { "type": "string" },
+          "password": { "type": "string" },
+          "language": { "type": "string", "description": "Language for deterministic seed mnemonic" }
+        }
+      },
+      "OpenWalletParams": {
+        "type": "object",
+        "required": ["filename"],
+        "properties": {
+          "filename": { "type": "string" },
+          "password": { "type": "string" }
+        }
+      },
+      "SweepAllParams": {
+        "type": "object",
+        "required": ["address"],
+        "properties": {
+          "address": { "type": "string", "description": "Destination address for sweep" },
+          "account_index": { "type": "integer" },
+          "subaddr_indices": { "type": "array", "items": { "type": "integer" } },
+          "subaddr_indices_all": { "type": "boolean" },
+          "priority": { "type": "integer" },
+          "mixin": { "type": "integer" },
+          "ring_size": { "type": "integer" },
+          "unlock_time": { "type": "integer" },
+          "payment_id": { "type": "string" },
+          "get_tx_keys": { "type": "boolean" },
+          "below_amount": { "type": "integer" },
+          "do_not_relay": { "type": "boolean" },
+          "get_tx_hex": { "type": "boolean" },
+          "get_tx_metadata": { "type": "boolean" }
+        }
+      },
+      "SweepAllResult": {
+        "type": "object",
+        "properties": {
+          "amount_list": { "type": "array", "items": { "type": "integer" } },
+          "fee_list": { "type": "array", "items": { "type": "integer" } },
+          "multisig_txset": { "type": "string" },
+          "spent_key_images_list": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "key_images": { "type": "array", "items": { "type": "string" } }
+              }
+            }
+          },
+          "tx_blob_list": { "type": "array", "items": { "type": "string" } },
+          "tx_hash_list": { "type": "array", "items": { "type": "string" } },
+          "tx_key_list": { "type": "array", "items": { "type": "string" } },
+          "tx_metadata_list": { "type": "array", "items": { "type": "string" } },
+          "unsigned_txset": { "type": "string" },
+          "weight_list": { "type": "array", "items": { "type": "integer" } }
+        }
+      },
+      "MultisigInfo": {
+        "type": "object",
+        "properties": {
+          "address": { "type": "string" },
+          "multisig_info": { "type": "string" }
+        }
+      },
+      "SignedKeyImage": {
+        "type": "object",
+        "properties": {
+          "key_image": { "type": "string" },
+          "signature": { "type": "string" }
+        }
+      },
+      "SubaddressIndex": {
+        "type": "object",
+        "properties": {
+          "major": { "type": "integer", "description": "Account index" },
+          "minor": { "type": "integer", "description": "Subaddress index" }
+        }
+      }
+    }
+  },
+  "tags": [
+    { "name": "JSON-RPC", "description": "JSON-RPC 2.0 dispatch endpoint for all wallet methods" },
+    { "name": "Wallet Management", "description": "Create, open, close, and manage wallets" },
+    { "name": "Accounts", "description": "Account and subaddress management" },
+    { "name": "Transfers", "description": "Send, receive, and query transfers" },
+    { "name": "Transaction Proofs", "description": "Spend and transaction proof generation/verification" },
+    { "name": "Multisig", "description": "Multisignature wallet operations" },
+    { "name": "Key Management", "description": "Key image and output export/import" },
+    { "name": "Mining", "description": "Wallet-level mining control" }
+  ]
+}

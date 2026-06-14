@@ -1,0 +1,239 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/monero/main/json-schema/monero-types.json",
+  "title": "Monero API Types",
+  "description": "JSON Schema definitions for core Monero RPC API data types",
+  "definitions": {
+    "uint64": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 18446744073709551615,
+      "description": "Unsigned 64-bit integer"
+    },
+    "uint32": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "description": "Unsigned 32-bit integer"
+    },
+    "uint8": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 255,
+      "description": "Unsigned 8-bit integer"
+    },
+    "binary": {
+      "type": "string",
+      "description": "0+ bytes binary data encoded as hexadecimal string",
+      "pattern": "^([0-9A-Fa-f]{2})*$"
+    },
+    "binary32": {
+      "type": "string",
+      "description": "32-bytes binary data encoded as hexadecimal string",
+      "minLength": 64,
+      "maxLength": 64,
+      "pattern": "^[0-9A-Fa-f]{64}$"
+    },
+    "MoneroAddress": {
+      "type": "string",
+      "description": "Monero wallet address (primary, subaddress, or integrated)",
+      "minLength": 95,
+      "maxLength": 106,
+      "examples": [
+        "44AFFq5kSiGBoZ4NMDwYtN18obc8AemS33DBLWs3H7otXft3XjrpDtQGv7SqSsaBYBb98uNbr2VBBEt7f2wfn3RVGQBEP3A"
+      ]
+    },
+    "PaymentId": {
+      "type": "string",
+      "description": "Payment ID (8 bytes = 16 hex chars, or 32 bytes = 64 hex chars)",
+      "pattern": "^([0-9A-Fa-f]{16}|[0-9A-Fa-f]{64})$"
+    },
+    "BlockHeader": {
+      "type": "object",
+      "description": "Monero block header information",
+      "properties": {
+        "block_size": { "$ref": "#/definitions/uint64", "description": "Block size in bytes" },
+        "block_weight": { "$ref": "#/definitions/uint64", "description": "Block weight" },
+        "cumulative_difficulty": { "$ref": "#/definitions/uint64" },
+        "cumulative_difficulty_top64": { "$ref": "#/definitions/uint64" },
+        "depth": { "$ref": "#/definitions/uint64", "description": "Number of blocks following this one" },
+        "difficulty": { "$ref": "#/definitions/uint64" },
+        "difficulty_top64": { "$ref": "#/definitions/uint64" },
+        "hash": { "$ref": "#/definitions/binary32", "description": "Block hash" },
+        "height": { "$ref": "#/definitions/uint64", "description": "Block height" },
+        "long_term_weight": { "$ref": "#/definitions/uint64" },
+        "major_version": { "$ref": "#/definitions/uint8" },
+        "miner_tx_hash": { "$ref": "#/definitions/binary32" },
+        "minor_version": { "$ref": "#/definitions/uint8" },
+        "nonce": { "$ref": "#/definitions/uint32" },
+        "num_txes": { "$ref": "#/definitions/uint64", "description": "Number of non-coinbase transactions in block" },
+        "orphan_status": { "type": "boolean" },
+        "pow_hash": { "type": "string", "description": "PoW hash (if fill_pow_hash was set)" },
+        "prev_hash": { "$ref": "#/definitions/binary32", "description": "Hash of the previous block" },
+        "reward": { "$ref": "#/definitions/uint64", "description": "Mining reward in atomic units" },
+        "timestamp": { "$ref": "#/definitions/uint64", "description": "Unix timestamp of block" },
+        "wide_cumulative_difficulty": { "type": "string", "description": "Cumulative difficulty as 128-bit hex" },
+        "wide_difficulty": { "type": "string", "description": "Difficulty as 128-bit hex" }
+      },
+      "required": ["hash", "height", "timestamp", "difficulty", "reward"]
+    },
+    "Transaction": {
+      "type": "object",
+      "description": "A Monero transaction entry from the blockchain or mempool",
+      "properties": {
+        "as_hex": { "type": "string", "description": "Full transaction hex blob" },
+        "as_json": { "type": "string", "description": "JSON-decoded transaction (when decode_as_json=true)" },
+        "block_height": { "$ref": "#/definitions/uint64" },
+        "block_timestamp": { "$ref": "#/definitions/uint64" },
+        "confirmations": { "$ref": "#/definitions/uint64" },
+        "double_spend_seen": { "type": "boolean" },
+        "in_pool": { "type": "boolean", "description": "True if the transaction is in the mempool" },
+        "output_indices": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/uint64" }
+        },
+        "prunable_as_hex": { "type": "string" },
+        "prunable_hash": { "type": "string" },
+        "pruned_as_hex": { "type": "string" },
+        "tx_hash": { "$ref": "#/definitions/binary32" }
+      },
+      "required": ["tx_hash"]
+    },
+    "TxPoolEntry": {
+      "type": "object",
+      "description": "A transaction in the mempool/transaction pool",
+      "properties": {
+        "blob_size": { "$ref": "#/definitions/uint64" },
+        "do_not_relay": { "type": "boolean" },
+        "double_spend_seen": { "type": "boolean" },
+        "fee": { "$ref": "#/definitions/uint64", "description": "Transaction fee in atomic units" },
+        "id_hash": { "$ref": "#/definitions/binary32", "description": "Transaction hash" },
+        "kept_by_block": { "type": "boolean" },
+        "last_failed_height": { "$ref": "#/definitions/uint64" },
+        "last_failed_id_hash": { "$ref": "#/definitions/binary32" },
+        "last_relayed_time": { "$ref": "#/definitions/uint64" },
+        "max_used_block_height": { "$ref": "#/definitions/uint64" },
+        "max_used_block_id_hash": { "$ref": "#/definitions/binary32" },
+        "receive_time": { "$ref": "#/definitions/uint64" },
+        "relayed": { "type": "boolean" },
+        "tx_blob": { "type": "string" },
+        "tx_json": { "type": "string" },
+        "weight": { "$ref": "#/definitions/uint64" }
+      },
+      "required": ["id_hash", "fee"]
+    },
+    "Peer": {
+      "type": "object",
+      "description": "A peer node on the Monero network",
+      "properties": {
+        "host": { "type": "string" },
+        "id": { "$ref": "#/definitions/uint64" },
+        "ip": { "type": "string", "format": "ipv4" },
+        "last_seen": { "$ref": "#/definitions/uint64" },
+        "port": { "$ref": "#/definitions/uint32" },
+        "rpc_credits_per_hash": { "$ref": "#/definitions/uint32" },
+        "rpc_port": { "$ref": "#/definitions/uint32" }
+      }
+    },
+    "SubaddressIndex": {
+      "type": "object",
+      "description": "Index to a specific subaddress within an account",
+      "properties": {
+        "major": { "$ref": "#/definitions/uint32", "description": "Account index" },
+        "minor": { "$ref": "#/definitions/uint32", "description": "Subaddress index within account" }
+      },
+      "required": ["major", "minor"]
+    },
+    "TransferDetail": {
+      "type": "object",
+      "description": "Details of a wallet transfer (incoming or outgoing)",
+      "properties": {
+        "address": { "$ref": "#/definitions/MoneroAddress" },
+        "amount": { "$ref": "#/definitions/uint64", "description": "Amount in atomic units" },
+        "amounts": { "type": "array", "items": { "$ref": "#/definitions/uint64" } },
+        "confirmations": { "$ref": "#/definitions/uint64" },
+        "double_spend_seen": { "type": "boolean" },
+        "fee": { "$ref": "#/definitions/uint64" },
+        "height": { "$ref": "#/definitions/uint64", "description": "Block height (0 if pending)" },
+        "locked": { "type": "boolean" },
+        "note": { "type": "string" },
+        "payment_id": { "type": "string" },
+        "subaddr_index": { "$ref": "#/definitions/SubaddressIndex" },
+        "subaddr_indices": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/SubaddressIndex" }
+        },
+        "suggested_confirmations_threshold": { "$ref": "#/definitions/uint64" },
+        "timestamp": { "$ref": "#/definitions/uint64" },
+        "txid": { "$ref": "#/definitions/binary32" },
+        "type": {
+          "type": "string",
+          "enum": ["in", "out", "pending", "failed", "pool"],
+          "description": "Transfer type"
+        },
+        "unlock_time": { "$ref": "#/definitions/uint64" }
+      },
+      "required": ["txid", "type", "amount"]
+    },
+    "SignedKeyImage": {
+      "type": "object",
+      "description": "A key image with its associated signature",
+      "properties": {
+        "key_image": { "$ref": "#/definitions/binary32" },
+        "signature": { "type": "string" }
+      },
+      "required": ["key_image", "signature"]
+    },
+    "Destination": {
+      "type": "object",
+      "description": "A transfer destination address and amount",
+      "properties": {
+        "amount": { "$ref": "#/definitions/uint64", "description": "Amount to send in atomic units" },
+        "address": { "$ref": "#/definitions/MoneroAddress" }
+      },
+      "required": ["amount", "address"]
+    },
+    "SubaddressAccount": {
+      "type": "object",
+      "description": "Wallet subaddress account information",
+      "properties": {
+        "account_index": { "$ref": "#/definitions/uint32" },
+        "balance": { "$ref": "#/definitions/uint64" },
+        "base_address": { "$ref": "#/definitions/MoneroAddress" },
+        "label": { "type": "string" },
+        "tag": { "type": "string" },
+        "unlocked_balance": { "$ref": "#/definitions/uint64" }
+      }
+    },
+    "JsonRpcRequest": {
+      "type": "object",
+      "description": "JSON-RPC 2.0 request envelope",
+      "properties": {
+        "jsonrpc": { "type": "string", "const": "2.0" },
+        "id": { "type": "string" },
+        "method": { "type": "string" },
+        "params": { "type": "object" }
+      },
+      "required": ["jsonrpc", "id", "method"]
+    },
+    "JsonRpcResponse": {
+      "type": "object",
+      "description": "JSON-RPC 2.0 response envelope",
+      "properties": {
+        "jsonrpc": { "type": "string", "const": "2.0" },
+        "id": { "type": "string" },
+        "result": { "type": "object" },
+        "error": {
+          "type": "object",
+          "properties": {
+            "code": { "type": "integer" },
+            "message": { "type": "string" },
+            "data": {}
+          },
+          "required": ["code", "message"]
+        }
+      },
+      "required": ["jsonrpc", "id"]
+    }
+  }
+}

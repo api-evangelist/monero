@@ -32,6 +32,8 @@ apis:
         url: https://docs.getmonero.org/rpc-library/monerod-rpc/
       - type: Documentation
         url: https://www.getmonero.org/resources/developer-guides/daemon-rpc.html
+      - type: OpenAPI
+        url: https://raw.githubusercontent.com/api-evangelist/monero/refs/heads/main/openapi/monero-daemon-rpc-openapi.json
     contact:
       - FN: Monero Community
         url: https://www.getmonero.org/community/hangouts/
@@ -54,6 +56,8 @@ apis:
         url: https://docs.getmonero.org/rpc-library/wallet-rpc/
       - type: Documentation
         url: https://www.getmonero.org/resources/developer-guides/wallet-rpc.html
+      - type: OpenAPI
+        url: https://raw.githubusercontent.com/api-evangelist/monero/refs/heads/main/openapi/monero-wallet-rpc-openapi.json
     contact:
       - FN: Monero Community
         url: https://www.getmonero.org/community/hangouts/
@@ -83,6 +87,10 @@ common:
     url: https://www.getmonero.org/resources/research-lab/
   - type: Downloads
     url: https://www.getmonero.org/downloads/
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/monero/refs/heads/main/json-schema/monero-types.json
+  - type: JSONLDContext
+    url: https://raw.githubusercontent.com/api-evangelist/monero/refs/heads/main/json-ld/monero-context.jsonld
   - type: Plans
     url: https://raw.githubusercontent.com/api-evangelist/monero/refs/heads/main/plans/plans.yml
   - type: RateLimits
