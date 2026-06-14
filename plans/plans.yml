@@ -1,0 +1,72 @@
+plans:
+  - name: Open Source / Self-Hosted
+    description: The Monero daemon (monerod) and wallet RPC (monero-wallet-rpc) are free, open-source software released under the BSD 3-Clause license. Anyone can run the full node and wallet RPC locally or on their own infrastructure at no cost.
+    type: self-hosted
+    features:
+      - Full Monero daemon (monerod) node software
+      - Monero wallet RPC (monero-wallet-rpc)
+      - Monero CLI wallet (monero-wallet-cli)
+      - Monero GUI wallet
+      - All JSON-RPC daemon and wallet methods
+      - P2Pool decentralized mining integration
+      - Tor and I2P network support
+      - Multisignature wallet support
+      - Offline transaction signing
+      - Hardware wallet support (Ledger, Trezor)
+      - Community SDK libraries (Node.js, Python, PHP, Go, Rust, Java, C#)
+    pricing:
+      software_cost: Free
+      network_fees: Variable per transaction (paid to miners)
+      node_infrastructure: User-provided
+    notes: >
+      Running a full node requires a synced copy of the Monero blockchain, which requires
+      significant disk space (pruned or full). Users interact with the daemon locally via
+      JSON-RPC on port 18081 for mainnet (18082 for wallet RPC). No API keys or registration
+      are required to run Monero software.
+  - name: Third-Party Node / Remote Node
+    description: Users who do not wish to run their own full node can connect to community-operated remote nodes or commercial node providers. This allows wallet-only setups without the resource cost of running monerod.
+    type: remote-node
+    features:
+      - Wallet RPC access without full node
+      - Public remote node directory at monero.fail
+      - No software installation required for basic use
+      - Compatible with all official Monero wallets
+    pricing:
+      software_cost: Free
+      remote_node: Varies by provider (many free, some commercial)
+    notes: >
+      Remote nodes are operated by community volunteers and third parties. Users connecting
+      to remote nodes sacrifice some privacy compared to running their own node. Commercial
+      node providers may charge subscription fees for guaranteed uptime and reliability.
+  - name: Mining (Solo)
+    description: Any holder of monerod can configure their node to perform solo CPU mining using the RandomX proof-of-work algorithm. Mining rewards are proportional to hash rate contributed to finding blocks.
+    type: mining
+    features:
+      - Built-in RandomX CPU mining via monerod
+      - start_mining and stop_mining RPC methods
+      - get_block_template for custom mining integration
+      - calc_pow for proof-of-work verification
+      - Coinbase rewards sent directly to specified wallet address
+    pricing:
+      software_cost: Free
+      reward: Block reward + transaction fees (varies; ~0.6 XMR per block declining per emission schedule)
+    notes: >
+      Solo mining with typical consumer hardware has a very low probability of finding blocks
+      due to the global network hash rate. P2Pool is recommended for small miners to receive
+      more consistent payouts without centralized pool fees.
+  - name: Mining (P2Pool)
+    description: P2Pool is a decentralized mining pool protocol supported natively by Monero. Miners contribute hash rate to a sidechain and receive proportional payouts without a centralized pool operator.
+    type: mining
+    features:
+      - Decentralized pool with no registration
+      - get_miner_data and add_aux_pow daemon RPC methods
+      - Payout every ~10 seconds proportional to shares
+      - No pool fees (some P2Pool software charges 0%)
+      - PPLNS (Pay Per Last N Shares) payout scheme
+    pricing:
+      pool_fee: '0% (P2Pool software is open source; no central operator takes a cut)'
+      network_fee: Standard Monero transaction fees apply to payouts
+    notes: >
+      P2Pool requires running both monerod and the P2Pool software. It offers the best
+      decentralization properties for Monero mining. Official documentation available at
+      https://docs.getmonero.org/interacting/monero-blockchain-export-reference/.

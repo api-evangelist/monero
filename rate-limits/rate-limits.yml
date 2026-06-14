@@ -1,0 +1,75 @@
+rate_limits:
+  overview: >
+    Monero's JSON-RPC APIs are self-hosted software without centralized rate limiting.
+    The monerod daemon and monero-wallet-rpc expose their RPC interfaces on local or
+    network-accessible ports and process requests sequentially or with limited concurrency.
+    Effective rate limits are determined by hardware, node sync state, and software
+    configuration rather than enforced quotas.
+  daemon_rpc:
+    transport: HTTP JSON-RPC 2.0
+    default_port_mainnet: 18081
+    default_port_testnet: 28081
+    default_port_stagenet: 38081
+    json_rpc_endpoint: /json_rpc
+    restricted_rpc:
+      description: >
+        monerod can be started with --restricted-rpc to expose only a subset of safe,
+        read-only methods to the public. This disables methods like generateblocks,
+        set_bans, flush_txpool, and other administrative calls.
+      flag: '--restricted-rpc'
+      public_node_flag: '--public-node'
+    authentication:
+      digest_auth: Optional (--rpc-login user:password)
+      ssl: Optional (--rpc-ssl)
+    concurrency:
+      description: >
+        The daemon processes RPC requests with limited concurrency. Heavy operations
+        like get_output_distribution over large block ranges can be slow and may
+        cause timeouts. The --rpc-access-control-origins flag controls CORS.
+    known_constraints:
+      get_output_distribution:
+        description: Can be slow for large block ranges; may time out on resource-constrained nodes
+      get_block_headers_range:
+        description: Large ranges may be slow; split into smaller requests for reliability
+      sync_state:
+        description: Many methods return incomplete data if the node is not fully synced
+  wallet_rpc:
+    transport: HTTP JSON-RPC 2.0
+    default_port_mainnet: 18082
+    authentication:
+      digest_auth: Optional (--rpc-login user:password)
+      ssl: Optional (--rpc-ssl)
+    concurrency:
+      description: >
+        monero-wallet-rpc processes one RPC call at a time per wallet instance.
+        Long-running operations like refresh, rescan_blockchain, or large transfer
+        operations will block other calls until complete.
+    known_constraints:
+      refresh:
+        description: Syncing a wallet from genesis can take hours; use get_height to monitor progress
+      rescan_blockchain:
+        description: Full rescan is a blocking long-running operation; avoid calling other methods simultaneously
+      transfer:
+        description: Large ring size (default 16) and multiple outputs increase transaction creation time
+      sweep_all:
+        description: May create multiple transactions if there are many outputs; can be slow
+      multisig:
+        description: Multisig operations require coordinating multiple wallet-rpc instances; each step must complete before proceeding
+  network_constraints:
+    transaction_size:
+      typical_bytes: 1400
+      typical_kb: '~1.4 KB for standard 2-output transaction'
+      max_weight: Variable; constrained by block weight limit
+    block_weight_limit:
+      description: Dynamic; grows to accommodate demand up to the median of the last 100,000 blocks times two
+    mempool:
+      description: Transactions stay in the mempool until included in a block; no explicit expiry by default
+    fee_levels:
+      description: Four fee priority tiers (unimportant, normal, elevated, priority) returned by get_fee_estimate
+      unit: atomic units per byte (1 XMR = 1e12 atomic units)
+  remote_node_considerations:
+    description: >
+      When connecting a wallet to a remote node instead of a local daemon, the remote
+      operator may impose their own rate limits, authentication requirements, or
+      restricted-rpc constraints. Check the remote node's documentation or terms of service.
+    public_node_list: https://monero.fail/

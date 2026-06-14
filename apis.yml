@@ -1,0 +1,95 @@
+name: Monero
+description: Monero is a privacy-focused, decentralized cryptocurrency providing JSON-RPC APIs for wallet management, transaction creation, mining coordination, and blockchain data access on the Monero (XMR) network. The daemon RPC exposes node and chain operations while the wallet RPC provides comprehensive wallet and transfer management.
+image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/monero/refs/heads/main/apis.yml
+created: '2026-06-14'
+modified: '2026-06-14'
+specificationVersion: '0.19'
+tags:
+  - Cryptocurrency
+  - Privacy
+  - Blockchain
+  - JSON-RPC
+  - Wallet
+  - Mining
+  - Transactions
+apis:
+  - name: Monero Daemon RPC API
+    description: JSON-RPC and HTTP API exposed by the monerod daemon for querying blockchain data, managing peer connections, retrieving block and transaction information, estimating fees, submitting mined blocks, and controlling node-level operations on the Monero network.
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://docs.getmonero.org/rpc-library/monerod-rpc/
+    baseURL: http://localhost:18081
+    tags:
+      - Blockchain
+      - Daemon
+      - Blocks
+      - Transactions
+      - Mining
+      - Node
+      - JSON-RPC
+    properties:
+      - type: Documentation
+        url: https://docs.getmonero.org/rpc-library/monerod-rpc/
+      - type: Documentation
+        url: https://www.getmonero.org/resources/developer-guides/daemon-rpc.html
+    contact:
+      - FN: Monero Community
+        url: https://www.getmonero.org/community/hangouts/
+        email: ''
+  - name: Monero Wallet RPC API
+    description: JSON-RPC API exposed by monero-wallet-rpc for creating and managing wallets, sending and receiving XMR, generating transaction proofs, handling multisignature workflows, exporting key images, and controlling wallet synchronization with the Monero blockchain.
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://docs.getmonero.org/rpc-library/wallet-rpc/
+    baseURL: http://localhost:18082
+    tags:
+      - Wallet
+      - Transfers
+      - Transactions
+      - Multisig
+      - Key Management
+      - Addresses
+      - JSON-RPC
+    properties:
+      - type: Documentation
+        url: https://docs.getmonero.org/rpc-library/wallet-rpc/
+      - type: Documentation
+        url: https://www.getmonero.org/resources/developer-guides/wallet-rpc.html
+    contact:
+      - FN: Monero Community
+        url: https://www.getmonero.org/community/hangouts/
+        email: ''
+common:
+  - type: Website
+    url: https://www.getmonero.org/
+  - type: Documentation
+    url: https://docs.getmonero.org/
+  - type: DeveloperPortal
+    url: https://www.getmonero.org/resources/developer-guides/
+  - type: GitHubOrg
+    url: https://github.com/monero-project
+  - type: GitHubRepo
+    url: https://github.com/monero-project/monero
+  - type: GitHubEcosystem
+    url: https://github.com/monero-ecosystem
+  - type: StackOverflow
+    url: https://monero.stackexchange.com
+  - type: Forum
+    url: https://forum.getmonero.org/
+  - type: IRC
+    url: https://matrix.to/#/#monero:libera.chat
+  - type: Blog
+    url: https://www.getmonero.org/blog/
+  - type: ResearchLab
+    url: https://www.getmonero.org/resources/research-lab/
+  - type: Downloads
+    url: https://www.getmonero.org/downloads/
+  - type: Plans
+    url: https://raw.githubusercontent.com/api-evangelist/monero/refs/heads/main/plans/plans.yml
+  - type: RateLimits
+    url: https://raw.githubusercontent.com/api-evangelist/monero/refs/heads/main/rate-limits/rate-limits.yml
+  - type: FinOps
+    url: https://raw.githubusercontent.com/api-evangelist/monero/refs/heads/main/finops/finops.yml
+maintainers:
+  - FN: API Evangelist
+    url: https://apievangelist.com
+    email: info@apievangelist.com

@@ -1,0 +1,97 @@
+finops:
+  overview: >
+    Monero is open-source, self-hosted software with no licensing costs or SaaS subscription
+    fees for the core APIs. Financial considerations relate to infrastructure costs for running
+    nodes, network transaction fees paid to miners (denominated in XMR), and optional
+    third-party commercial services built on top of the protocol.
+  software_costs:
+    model: free_open_source
+    license: BSD 3-Clause
+    cost: '$0'
+    notes: >
+      monerod, monero-wallet-rpc, monero-wallet-cli, and the Monero GUI wallet are all
+      free and open-source. There are no API keys, subscriptions, or usage-based fees
+      charged by the Monero project itself.
+  infrastructure_costs:
+    full_node:
+      model: self_hosted
+      blockchain_size:
+        pruned_gb: '~60 GB (pruned node)'
+        full_gb: '~200+ GB (full node as of 2026)'
+        growth: Grows over time with network activity
+      ram_minimum_gb: 2
+      ram_recommended_gb: 4
+      cpu: Any modern CPU; RandomX PoW benefits from large L3 cache
+      bandwidth:
+        initial_sync: Several GB for blockchain download
+        ongoing_monthly_gb: '~5-20 GB depending on peer count and network activity'
+      estimated_monthly_cost_vps: '$5-$20 USD on typical VPS providers'
+    wallet_rpc:
+      model: self_hosted
+      notes: >
+        monero-wallet-rpc can run on the same host as monerod or separately.
+        Resource usage is modest; primary cost is blockchain sync time on first run.
+  transaction_fees:
+    model: dynamic_network_fee
+    unit: atomic_units_per_byte
+    conversion: '1 XMR = 1,000,000,000,000 (1e12) atomic units'
+    typical_fee_xmr: '~0.00001–0.0001 XMR per transaction (varies with network load)'
+    fee_priority_tiers:
+      - name: unimportant
+        description: Lowest fee; slowest inclusion; suitable for non-time-sensitive transfers
+      - name: normal
+        description: Default fee tier; typically included within 1-2 blocks
+      - name: elevated
+        description: Higher fee for faster inclusion during congestion
+      - name: priority
+        description: Highest fee for immediate next-block inclusion
+    dynamic_fee_calculation:
+      method: get_fee_estimate daemon RPC
+      description: >
+        Call get_fee_estimate to retrieve current fee rates per byte at each priority level.
+        Fees are paid to the block miner and are burned/not accumulated by any central party.
+    ring_signature_cost:
+      description: >
+        Monero's privacy features (RingCT, stealth addresses, ring signatures) make
+        transactions larger than most cryptocurrencies. Default ring size is 16 decoys.
+        Larger transactions incur proportionally higher fees.
+  mining_economics:
+    block_reward:
+      description: >
+        Monero uses a smooth emission curve. The block reward was ~0.6 XMR per block in 2026,
+        declining gradually. After the main emission ends, a minimum tail emission of
+        0.6 XMR/block is maintained permanently to fund miners and preserve network security.
+      tail_emission: 0.6 XMR per block (permanent minimum)
+    block_time_seconds: 120
+    mining_software_cost: Free (P2Pool, XMRig, and others are open source)
+    pool_fees:
+      solo: '0% (full block reward if found)'
+      p2pool: '0% (decentralized; no operator fee)'
+      centralized_pools: 'Typically 1-2% of mined XMR'
+  commercial_service_costs:
+    remote_nodes:
+      - type: Community volunteer nodes
+        cost: Free
+        reliability: Variable
+        directory: https://monero.fail/
+      - type: Commercial node providers
+        cost: '$5-$50/month depending on provider and SLA'
+        examples: Various third-party hosting providers
+    exchange_listing:
+      description: >
+        XMR is listed on numerous centralized and decentralized exchanges.
+        Trading fees vary by exchange (typically 0.1-0.5% per trade).
+  cost_optimization_tips:
+    - Run a pruned node (--prune-blockchain) to reduce storage by ~60%; saves disk cost on VPS
+    - Use P2Pool instead of centralized pools to avoid 1-2% pool fees on mining rewards
+    - Use normal fee tier for routine transactions; only use priority tier when time-sensitive
+    - Consolidate small outputs with sweep_dust before transfers to reduce future transaction sizes and fees
+    - Use sweep_all to consolidate outputs periodically; reduces long-term transaction fee overhead
+    - Self-host monerod and monero-wallet-rpc to avoid remote node privacy trade-offs and third-party costs
+    - Run on ARM-based VPS (e.g., Ampere) for better price/performance on CPU-intensive RandomX validation
+  references:
+    daemon_rpc: https://docs.getmonero.org/rpc-library/monerod-rpc/
+    wallet_rpc: https://docs.getmonero.org/rpc-library/wallet-rpc/
+    developer_guides: https://www.getmonero.org/resources/developer-guides/
+    source_code: https://github.com/monero-project/monero
+    public_nodes: https://monero.fail/
