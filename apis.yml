@@ -77,7 +77,7 @@ common:
     url: https://github.com/monero-ecosystem
   - type: StackOverflow
     url: https://monero.stackexchange.com
-  - type: Forum
+  - type: Forums
     url: https://forum.getmonero.org/
   - type: IRC
     url: https://matrix.to/#/#monero:libera.chat
