@@ -63,6 +63,8 @@ apis:
         url: https://www.getmonero.org/community/hangouts/
         email: ''
 common:
+  - type: DomainSecurity
+    url: security/monero-domain-security.yml
   - type: Website
     url: https://www.getmonero.org/
   - type: Documentation
