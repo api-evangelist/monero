@@ -1,0 +1,126 @@
+openapi: 3.0.3
+info:
+  title: Monero Daemon RPC Blockchain Mining API
+  description: JSON-RPC and HTTP API exposed by the monerod daemon for querying blockchain data, managing peer connections, retrieving block and transaction information, estimating fees, submitting mined blocks, and controlling node-level operations on the Monero network.
+  version: '0.18'
+  contact:
+    name: Monero Community
+    url: https://www.getmonero.org/community/hangouts/
+  license:
+    name: BSD-3-Clause
+    url: https://github.com/monero-project/monero/blob/master/LICENSE
+servers:
+- url: http://localhost:18081
+  description: Local monerod mainnet node
+- url: http://localhost:28081
+  description: Local monerod testnet node
+tags:
+- name: Mining
+  description: Mining control and block template operations
+paths:
+  /start_mining:
+    post:
+      summary: Start mining on the daemon
+      description: Starts mining on the daemon.
+      operationId: startMining
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                do_background_mining:
+                  type: boolean
+                ignore_battery:
+                  type: boolean
+                miner_address:
+                  type: string
+                  description: Mining reward address
+                threads_count:
+                  type: integer
+                  description: Number of mining threads
+              required:
+              - do_background_mining
+              - ignore_battery
+              - miner_address
+              - threads_count
+      responses:
+        '200':
+          description: Mining start result
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+      tags:
+      - Mining
+  /stop_mining:
+    post:
+      summary: Stop mining on the daemon
+      description: Stops mining on the daemon.
+      operationId: stopMining
+      responses:
+        '200':
+          description: Mining stop result
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+      tags:
+      - Mining
+  /mining_status:
+    post:
+      summary: Get mining status
+      description: Gets the mining status of the daemon.
+      operationId: miningStatus
+      responses:
+        '200':
+          description: Current mining status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  active:
+                    type: boolean
+                  address:
+                    type: string
+                  bg_idle_threshold:
+                    type: integer
+                  bg_ignore_battery:
+                    type: boolean
+                  bg_min_idle_seconds:
+                    type: integer
+                  bg_target:
+                    type: integer
+                  block_reward:
+                    type: integer
+                  block_target:
+                    type: integer
+                  difficulty:
+                    type: integer
+                  difficulty_top64:
+                    type: integer
+                  is_background_mining_enabled:
+                    type: boolean
+                  pow_algorithm:
+                    type: string
+                  speed:
+                    type: integer
+                  threads_count:
+                    type: integer
+                  wide_difficulty:
+                    type: string
+                  status:
+                    type: string
+      tags:
+      - Mining
+externalDocs:
+  description: Monero Daemon RPC Documentation
+  url: https://docs.getmonero.org/rpc-library/monerod-rpc/

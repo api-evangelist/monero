@@ -1,0 +1,114 @@
+openapi: 3.0.3
+info:
+  title: Monero Daemon RPC Blockchain JSON-RPC API
+  description: JSON-RPC and HTTP API exposed by the monerod daemon for querying blockchain data, managing peer connections, retrieving block and transaction information, estimating fees, submitting mined blocks, and controlling node-level operations on the Monero network.
+  version: '0.18'
+  contact:
+    name: Monero Community
+    url: https://www.getmonero.org/community/hangouts/
+  license:
+    name: BSD-3-Clause
+    url: https://github.com/monero-project/monero/blob/master/LICENSE
+servers:
+- url: http://localhost:18081
+  description: Local monerod mainnet node
+- url: http://localhost:28081
+  description: Local monerod testnet node
+tags:
+- name: JSON-RPC
+  description: JSON-RPC 2.0 dispatch endpoint
+paths:
+  /json_rpc:
+    post:
+      summary: JSON-RPC endpoint
+      description: All JSON-RPC methods are dispatched through this single endpoint using the JSON-RPC 2.0 protocol. Set the method field to the desired RPC method name.
+      operationId: jsonRpc
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JsonRpcRequest'
+      responses:
+        '200':
+          description: JSON-RPC response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JsonRpcResponse'
+      tags:
+      - JSON-RPC
+components:
+  schemas:
+    JsonRpcResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        jsonrpc:
+          type: string
+        result:
+          type: object
+          description: Method-specific result
+        error:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+    JsonRpcRequest:
+      type: object
+      required:
+      - jsonrpc
+      - id
+      - method
+      properties:
+        jsonrpc:
+          type: string
+          enum:
+          - '2.0'
+        id:
+          type: string
+          example: '0'
+        method:
+          type: string
+          description: The JSON-RPC method to invoke
+          enum:
+          - add_aux_pow
+          - banned
+          - calc_pow
+          - flush_cache
+          - flush_txpool
+          - generateblocks
+          - get_alternate_chains
+          - get_bans
+          - get_block
+          - get_block_count
+          - get_block_header_by_hash
+          - get_block_header_by_height
+          - get_block_headers_range
+          - get_block_template
+          - get_coinbase_tx_sum
+          - get_connections
+          - get_fee_estimate
+          - get_info
+          - get_last_block_header
+          - get_miner_data
+          - get_output_distribution
+          - get_output_histogram
+          - get_txpool_backlog
+          - get_version
+          - hard_fork_info
+          - on_get_block_hash
+          - prune_blockchain
+          - relay_tx
+          - set_bans
+          - submit_block
+          - sync_info
+        params:
+          type: object
+          description: Method-specific parameters
+externalDocs:
+  description: Monero Daemon RPC Documentation
+  url: https://docs.getmonero.org/rpc-library/monerod-rpc/

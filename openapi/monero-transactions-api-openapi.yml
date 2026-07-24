@@ -1,0 +1,203 @@
+openapi: 3.0.3
+info:
+  title: Monero Daemon RPC Blockchain Transactions API
+  description: JSON-RPC and HTTP API exposed by the monerod daemon for querying blockchain data, managing peer connections, retrieving block and transaction information, estimating fees, submitting mined blocks, and controlling node-level operations on the Monero network.
+  version: '0.18'
+  contact:
+    name: Monero Community
+    url: https://www.getmonero.org/community/hangouts/
+  license:
+    name: BSD-3-Clause
+    url: https://github.com/monero-project/monero/blob/master/LICENSE
+servers:
+- url: http://localhost:18081
+  description: Local monerod mainnet node
+- url: http://localhost:28081
+  description: Local monerod testnet node
+tags:
+- name: Transactions
+  description: Transaction submission and lookup
+paths:
+  /get_transactions:
+    post:
+      summary: Get transactions by IDs
+      description: Looks up one or more transactions by their IDs.
+      operationId: getTransactions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                txs_hashes:
+                  type: array
+                  items:
+                    type: string
+                  description: List of transaction hashes to look up
+                decode_as_json:
+                  type: boolean
+                  description: If true, return transaction data as JSON
+                prune:
+                  type: boolean
+                  description: Prune transaction data
+              required:
+              - txs_hashes
+      responses:
+        '200':
+          description: Transaction data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  txs:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TransactionEntry'
+                  txs_as_hex:
+                    type: array
+                    items:
+                      type: string
+                  txs_as_json:
+                    type: array
+                    items:
+                      type: string
+                  missed_tx:
+                    type: array
+                    items:
+                      type: string
+                  status:
+                    type: string
+                  untrusted:
+                    type: boolean
+      tags:
+      - Transactions
+  /is_key_image_spent:
+    post:
+      summary: Check if key images are spent
+      description: Checks if outputs have been spent using key images.
+      operationId: isKeyImageSpent
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                key_images:
+                  type: array
+                  items:
+                    type: string
+                  description: List of key images to check
+              required:
+              - key_images
+      responses:
+        '200':
+          description: Spent status for each key image
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  spent_status:
+                    type: array
+                    items:
+                      type: integer
+                    description: '0: unspent, 1: spent in blockchain, 2: spent in tx pool'
+                  status:
+                    type: string
+                  untrusted:
+                    type: boolean
+      tags:
+      - Transactions
+  /send_raw_transaction:
+    post:
+      summary: Submit raw transaction
+      description: Broadcasts a raw transaction to the network.
+      operationId: sendRawTransaction
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tx_as_hex:
+                  type: string
+                  description: Transaction as hexadecimal string
+                do_not_relay:
+                  type: boolean
+                  description: If true, do not relay to network
+              required:
+              - tx_as_hex
+      responses:
+        '200':
+          description: Transaction submission result
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  double_spend:
+                    type: boolean
+                  fee_too_low:
+                    type: boolean
+                  invalid_input:
+                    type: boolean
+                  invalid_output:
+                    type: boolean
+                  low_mixin:
+                    type: boolean
+                  not_rct:
+                    type: boolean
+                  not_relayed:
+                    type: boolean
+                  overspend:
+                    type: boolean
+                  reason:
+                    type: string
+                  status:
+                    type: string
+                  too_big:
+                    type: boolean
+                  too_few_outputs:
+                    type: boolean
+                  untrusted:
+                    type: boolean
+      tags:
+      - Transactions
+components:
+  schemas:
+    TransactionEntry:
+      type: object
+      properties:
+        as_hex:
+          type: string
+        as_json:
+          type: string
+        block_height:
+          type: integer
+        block_timestamp:
+          type: integer
+        confirmations:
+          type: integer
+        double_spend_seen:
+          type: boolean
+        in_pool:
+          type: boolean
+        output_indices:
+          type: array
+          items:
+            type: integer
+        prunable_as_hex:
+          type: string
+        prunable_hash:
+          type: string
+        pruned_as_hex:
+          type: string
+        tx_hash:
+          type: string
+externalDocs:
+  description: Monero Daemon RPC Documentation
+  url: https://docs.getmonero.org/rpc-library/monerod-rpc/

@@ -1,0 +1,47 @@
+openapi: 3.0.3
+info:
+  title: Monero Daemon RPC Blockchain Node Info API
+  description: JSON-RPC and HTTP API exposed by the monerod daemon for querying blockchain data, managing peer connections, retrieving block and transaction information, estimating fees, submitting mined blocks, and controlling node-level operations on the Monero network.
+  version: '0.18'
+  contact:
+    name: Monero Community
+    url: https://www.getmonero.org/community/hangouts/
+  license:
+    name: BSD-3-Clause
+    url: https://github.com/monero-project/monero/blob/master/LICENSE
+servers:
+- url: http://localhost:18081
+  description: Local monerod mainnet node
+- url: http://localhost:28081
+  description: Local monerod testnet node
+tags:
+- name: Node Info
+  description: Node status and info
+paths:
+  /get_height:
+    post:
+      summary: Get current blockchain height
+      description: Returns the current node's blockchain height.
+      operationId: getHeight
+      responses:
+        '200':
+          description: Current blockchain height
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  height:
+                    type: integer
+                    description: Current blockchain height
+                  status:
+                    type: string
+                    description: Status of the call (OK)
+                  untrusted:
+                    type: boolean
+                    description: If the node is not synced
+      tags:
+      - Node Info
+externalDocs:
+  description: Monero Daemon RPC Documentation
+  url: https://docs.getmonero.org/rpc-library/monerod-rpc/

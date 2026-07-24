@@ -1,0 +1,46 @@
+openapi: 3.0.3
+info:
+  title: Monero Daemon RPC Blockchain API
+  description: JSON-RPC and HTTP API exposed by the monerod daemon for querying blockchain data, managing peer connections, retrieving block and transaction information, estimating fees, submitting mined blocks, and controlling node-level operations on the Monero network.
+  version: '0.18'
+  contact:
+    name: Monero Community
+    url: https://www.getmonero.org/community/hangouts/
+  license:
+    name: BSD-3-Clause
+    url: https://github.com/monero-project/monero/blob/master/LICENSE
+servers:
+- url: http://localhost:18081
+  description: Local monerod mainnet node
+- url: http://localhost:28081
+  description: Local monerod testnet node
+tags:
+- name: Blockchain
+  description: Blockchain data and block operations
+paths:
+  /get_alt_blocks_hashes:
+    post:
+      summary: Get alternative chain block hashes
+      description: Retrieves hashes of the alternative chains seen by the node.
+      operationId: getAltBlocksHashes
+      responses:
+        '200':
+          description: Alternative block hashes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  blks_hashes:
+                    type: array
+                    items:
+                      type: string
+                  status:
+                    type: string
+                  untrusted:
+                    type: boolean
+      tags:
+      - Blockchain
+externalDocs:
+  description: Monero Daemon RPC Documentation
+  url: https://docs.getmonero.org/rpc-library/monerod-rpc/

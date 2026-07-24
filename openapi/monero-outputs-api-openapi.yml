@@ -1,0 +1,75 @@
+openapi: 3.0.3
+info:
+  title: Monero Daemon RPC Blockchain Outputs API
+  description: JSON-RPC and HTTP API exposed by the monerod daemon for querying blockchain data, managing peer connections, retrieving block and transaction information, estimating fees, submitting mined blocks, and controlling node-level operations on the Monero network.
+  version: '0.18'
+  contact:
+    name: Monero Community
+    url: https://www.getmonero.org/community/hangouts/
+  license:
+    name: BSD-3-Clause
+    url: https://github.com/monero-project/monero/blob/master/LICENSE
+servers:
+- url: http://localhost:18081
+  description: Local monerod mainnet node
+- url: http://localhost:28081
+  description: Local monerod testnet node
+tags:
+- name: Outputs
+  description: Output and key image operations
+paths:
+  /get_outs:
+    post:
+      summary: Get outputs
+      description: Get outputs associated with transaction outputs.
+      operationId: getOuts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                outputs:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      amount:
+                        type: integer
+                      index:
+                        type: integer
+                get_txid:
+                  type: boolean
+              required:
+              - outputs
+      responses:
+        '200':
+          description: Output data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  outs:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        height:
+                          type: integer
+                        key:
+                          type: string
+                        mask:
+                          type: string
+                        txid:
+                          type: string
+                        unlocked:
+                          type: boolean
+                  status:
+                    type: string
+      tags:
+      - Outputs
+externalDocs:
+  description: Monero Daemon RPC Documentation
+  url: https://docs.getmonero.org/rpc-library/monerod-rpc/

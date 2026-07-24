@@ -1,0 +1,165 @@
+openapi: 3.0.3
+info:
+  title: Monero Daemon RPC Blockchain Network API
+  description: JSON-RPC and HTTP API exposed by the monerod daemon for querying blockchain data, managing peer connections, retrieving block and transaction information, estimating fees, submitting mined blocks, and controlling node-level operations on the Monero network.
+  version: '0.18'
+  contact:
+    name: Monero Community
+    url: https://www.getmonero.org/community/hangouts/
+  license:
+    name: BSD-3-Clause
+    url: https://github.com/monero-project/monero/blob/master/LICENSE
+servers:
+- url: http://localhost:18081
+  description: Local monerod mainnet node
+- url: http://localhost:28081
+  description: Local monerod testnet node
+tags:
+- name: Network
+  description: Peer and network management
+paths:
+  /get_net_stats:
+    post:
+      summary: Get network statistics
+      description: Returns network statistics for the node.
+      operationId: getNetStats
+      responses:
+        '200':
+          description: Network statistics
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  start_time:
+                    type: integer
+                  total_bytes_in:
+                    type: integer
+                  total_bytes_out:
+                    type: integer
+                  total_in:
+                    type: integer
+                  total_out:
+                    type: integer
+                  status:
+                    type: string
+      tags:
+      - Network
+  /get_limit:
+    post:
+      summary: Get bandwidth limits
+      description: Returns current download and upload bandwidth limits.
+      operationId: getLimit
+      responses:
+        '200':
+          description: Bandwidth limits
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  limit_down:
+                    type: integer
+                    description: Download limit in kB/s
+                  limit_up:
+                    type: integer
+                    description: Upload limit in kB/s
+                  status:
+                    type: string
+      tags:
+      - Network
+  /get_peer_list:
+    post:
+      summary: Get peer list
+      description: Returns the peer list connected to the node.
+      operationId: getPeerList
+      responses:
+        '200':
+          description: List of peers
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  gray_list:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PeerInfo'
+                  white_list:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PeerInfo'
+                  status:
+                    type: string
+      tags:
+      - Network
+  /get_public_nodes:
+    post:
+      summary: Get public nodes
+      description: Returns a list of public nodes available on the network.
+      operationId: getPublicNodes
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                gray:
+                  type: boolean
+                  description: Include gray list peers
+                white:
+                  type: boolean
+                  description: Include white list peers
+      responses:
+        '200':
+          description: List of public nodes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  gray:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PublicNode'
+                  white:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PublicNode'
+                  status:
+                    type: string
+      tags:
+      - Network
+components:
+  schemas:
+    PeerInfo:
+      type: object
+      properties:
+        host:
+          type: string
+        id:
+          type: integer
+        ip:
+          type: string
+        last_seen:
+          type: integer
+        port:
+          type: integer
+        rpc_credits_per_hash:
+          type: integer
+        rpc_port:
+          type: integer
+    PublicNode:
+      type: object
+      properties:
+        host:
+          type: string
+        last_seen:
+          type: integer
+        rpc_credits_per_hash:
+          type: integer
+        rpc_port:
+          type: integer
+externalDocs:
+  description: Monero Daemon RPC Documentation
+  url: https://docs.getmonero.org/rpc-library/monerod-rpc/

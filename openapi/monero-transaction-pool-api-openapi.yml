@@ -1,0 +1,140 @@
+openapi: 3.0.3
+info:
+  title: Monero Daemon RPC Blockchain Transaction Pool API
+  description: JSON-RPC and HTTP API exposed by the monerod daemon for querying blockchain data, managing peer connections, retrieving block and transaction information, estimating fees, submitting mined blocks, and controlling node-level operations on the Monero network.
+  version: '0.18'
+  contact:
+    name: Monero Community
+    url: https://www.getmonero.org/community/hangouts/
+  license:
+    name: BSD-3-Clause
+    url: https://github.com/monero-project/monero/blob/master/LICENSE
+servers:
+- url: http://localhost:18081
+  description: Local monerod mainnet node
+- url: http://localhost:28081
+  description: Local monerod testnet node
+tags:
+- name: Transaction Pool
+  description: Mempool / transaction pool operations
+paths:
+  /get_transaction_pool:
+    post:
+      summary: Get transaction pool
+      description: Shows information about valid transactions seen by the node but not yet mined into a block.
+      operationId: getTransactionPool
+      responses:
+        '200':
+          description: Transaction pool contents
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  spent_key_images:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id_hash:
+                          type: string
+                        txs_hashes:
+                          type: array
+                          items:
+                            type: string
+                  transactions:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TxPoolEntry'
+                  status:
+                    type: string
+      tags:
+      - Transaction Pool
+  /get_transaction_pool_stats:
+    post:
+      summary: Get transaction pool statistics
+      description: Returns statistics about the transaction pool.
+      operationId: getTransactionPoolStats
+      responses:
+        '200':
+          description: Transaction pool statistics
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pool_stats:
+                    type: object
+                    properties:
+                      bytes_max:
+                        type: integer
+                      bytes_med:
+                        type: integer
+                      bytes_min:
+                        type: integer
+                      bytes_total:
+                        type: integer
+                      fee_total:
+                        type: integer
+                      histo:
+                        type: array
+                        items:
+                          type: object
+                      histo_98pc:
+                        type: integer
+                      num_10m:
+                        type: integer
+                      num_double_spends:
+                        type: integer
+                      num_failing:
+                        type: integer
+                      num_not_relayed:
+                        type: integer
+                      oldest:
+                        type: integer
+                      txs_total:
+                        type: integer
+                  status:
+                    type: string
+      tags:
+      - Transaction Pool
+components:
+  schemas:
+    TxPoolEntry:
+      type: object
+      properties:
+        blob_size:
+          type: integer
+        do_not_relay:
+          type: boolean
+        double_spend_seen:
+          type: boolean
+        fee:
+          type: integer
+        id_hash:
+          type: string
+        kept_by_block:
+          type: boolean
+        last_failed_height:
+          type: integer
+        last_failed_id_hash:
+          type: string
+        last_relayed_time:
+          type: integer
+        max_used_block_height:
+          type: integer
+        max_used_block_id_hash:
+          type: string
+        receive_time:
+          type: integer
+        relayed:
+          type: boolean
+        tx_blob:
+          type: string
+        tx_json:
+          type: string
+        weight:
+          type: integer
+externalDocs:
+  description: Monero Daemon RPC Documentation
+  url: https://docs.getmonero.org/rpc-library/monerod-rpc/
