@@ -1,6 +1,18 @@
 name: Monero
 description: Monero is a privacy-focused, decentralized cryptocurrency providing JSON-RPC APIs for wallet management, transaction creation, mining coordination, and blockchain data access on the Monero (XMR) network. The daemon RPC exposes node and chain operations while the wallet RPC provides comprehensive wallet and transfer management.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: free
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Free
+  confidence: medium
+  source:
+  - plans
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/monero.png
 url: https://raw.githubusercontent.com/api-evangelist/monero/refs/heads/main/apis.yml
 created: '2026-06-14'
 modified: '2026-06-14'
@@ -14,54 +26,150 @@ tags:
   - Mining
   - Transactions
 apis:
-  - name: Monero Daemon RPC API
-    description: JSON-RPC and HTTP API exposed by the monerod daemon for querying blockchain data, managing peer connections, retrieving block and transaction information, estimating fees, submitting mined blocks, and controlling node-level operations on the Monero network.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://docs.getmonero.org/rpc-library/monerod-rpc/
-    baseURL: http://localhost:18081
-    tags:
-      - Blockchain
-      - Daemon
-      - Blocks
-      - Transactions
-      - Mining
-      - Node
-      - JSON-RPC
-    properties:
-      - type: Documentation
-        url: https://docs.getmonero.org/rpc-library/monerod-rpc/
-      - type: Documentation
-        url: https://www.getmonero.org/resources/developer-guides/daemon-rpc.html
-      - type: OpenAPI
-        url: https://raw.githubusercontent.com/api-evangelist/monero/refs/heads/main/openapi/monero-daemon-rpc-openapi.json
-    contact:
-      - FN: Monero Community
-        url: https://www.getmonero.org/community/hangouts/
-        email: ''
-  - name: Monero Wallet RPC API
-    description: JSON-RPC API exposed by monero-wallet-rpc for creating and managing wallets, sending and receiving XMR, generating transaction proofs, handling multisignature workflows, exporting key images, and controlling wallet synchronization with the Monero blockchain.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://docs.getmonero.org/rpc-library/wallet-rpc/
-    baseURL: http://localhost:18082
-    tags:
-      - Wallet
-      - Transfers
-      - Transactions
-      - Multisig
-      - Key Management
-      - Addresses
-      - JSON-RPC
-    properties:
-      - type: Documentation
-        url: https://docs.getmonero.org/rpc-library/wallet-rpc/
-      - type: Documentation
-        url: https://www.getmonero.org/resources/developer-guides/wallet-rpc.html
-      - type: OpenAPI
-        url: https://raw.githubusercontent.com/api-evangelist/monero/refs/heads/main/openapi/monero-wallet-rpc-openapi.json
-    contact:
-      - FN: Monero Community
-        url: https://www.getmonero.org/community/hangouts/
-        email: ''
+- aid: monero:monero-blockchain-api
+  name: Monero Blockchain API
+  description: Blockchain data and block operations
+  humanURL: https://docs.getmonero.org/rpc-library/monerod-rpc/
+  baseURL: http://localhost:18081
+  tags:
+  - Blockchain
+  properties:
+  - type: OpenAPI
+    url: openapi/monero-blockchain-api-openapi.yml
+  - type: Documentation
+    url: https://docs.getmonero.org/rpc-library/monerod-rpc/
+  - type: Documentation
+    url: https://www.getmonero.org/resources/developer-guides/daemon-rpc.html
+  - type: Documentation
+    url: https://docs.getmonero.org/rpc-library/wallet-rpc/
+  - type: Documentation
+    url: https://www.getmonero.org/resources/developer-guides/wallet-rpc.html
+- aid: monero:monero-json-rpc-api
+  name: Monero JSON-RPC API
+  description: JSON-RPC 2.0 dispatch endpoint
+  humanURL: https://docs.getmonero.org/rpc-library/monerod-rpc/
+  baseURL: http://localhost:18081
+  tags:
+  - JSON-RPC
+  properties:
+  - type: OpenAPI
+    url: openapi/monero-json-rpc-api-openapi.yml
+  - type: Documentation
+    url: https://docs.getmonero.org/rpc-library/monerod-rpc/
+  - type: Documentation
+    url: https://www.getmonero.org/resources/developer-guides/daemon-rpc.html
+  - type: Documentation
+    url: https://docs.getmonero.org/rpc-library/wallet-rpc/
+  - type: Documentation
+    url: https://www.getmonero.org/resources/developer-guides/wallet-rpc.html
+- aid: monero:monero-mining-api
+  name: Monero Mining API
+  description: Mining control and block template operations
+  humanURL: https://docs.getmonero.org/rpc-library/monerod-rpc/
+  baseURL: http://localhost:18081
+  tags:
+  - Mining
+  properties:
+  - type: OpenAPI
+    url: openapi/monero-mining-api-openapi.yml
+  - type: Documentation
+    url: https://docs.getmonero.org/rpc-library/monerod-rpc/
+  - type: Documentation
+    url: https://www.getmonero.org/resources/developer-guides/daemon-rpc.html
+  - type: Documentation
+    url: https://docs.getmonero.org/rpc-library/wallet-rpc/
+  - type: Documentation
+    url: https://www.getmonero.org/resources/developer-guides/wallet-rpc.html
+- aid: monero:monero-network-api
+  name: Monero Network API
+  description: Peer and network management
+  humanURL: https://docs.getmonero.org/rpc-library/monerod-rpc/
+  baseURL: http://localhost:18081
+  tags:
+  - Network
+  properties:
+  - type: OpenAPI
+    url: openapi/monero-network-api-openapi.yml
+  - type: Documentation
+    url: https://docs.getmonero.org/rpc-library/monerod-rpc/
+  - type: Documentation
+    url: https://www.getmonero.org/resources/developer-guides/daemon-rpc.html
+  - type: Documentation
+    url: https://docs.getmonero.org/rpc-library/wallet-rpc/
+  - type: Documentation
+    url: https://www.getmonero.org/resources/developer-guides/wallet-rpc.html
+- aid: monero:monero-node-info-api
+  name: Monero Node Info API
+  description: Node status and info
+  humanURL: https://docs.getmonero.org/rpc-library/monerod-rpc/
+  baseURL: http://localhost:18081
+  tags:
+  - Node Info
+  properties:
+  - type: OpenAPI
+    url: openapi/monero-node-info-api-openapi.yml
+  - type: Documentation
+    url: https://docs.getmonero.org/rpc-library/monerod-rpc/
+  - type: Documentation
+    url: https://www.getmonero.org/resources/developer-guides/daemon-rpc.html
+  - type: Documentation
+    url: https://docs.getmonero.org/rpc-library/wallet-rpc/
+  - type: Documentation
+    url: https://www.getmonero.org/resources/developer-guides/wallet-rpc.html
+- aid: monero:monero-outputs-api
+  name: Monero Outputs API
+  description: Output and key image operations
+  humanURL: https://docs.getmonero.org/rpc-library/monerod-rpc/
+  baseURL: http://localhost:18081
+  tags:
+  - Outputs
+  properties:
+  - type: OpenAPI
+    url: openapi/monero-outputs-api-openapi.yml
+  - type: Documentation
+    url: https://docs.getmonero.org/rpc-library/monerod-rpc/
+  - type: Documentation
+    url: https://www.getmonero.org/resources/developer-guides/daemon-rpc.html
+  - type: Documentation
+    url: https://docs.getmonero.org/rpc-library/wallet-rpc/
+  - type: Documentation
+    url: https://www.getmonero.org/resources/developer-guides/wallet-rpc.html
+- aid: monero:monero-transaction-pool-api
+  name: Monero Transaction Pool API
+  description: Mempool / transaction pool operations
+  humanURL: https://docs.getmonero.org/rpc-library/monerod-rpc/
+  baseURL: http://localhost:18081
+  tags:
+  - Transaction Pool
+  properties:
+  - type: OpenAPI
+    url: openapi/monero-transaction-pool-api-openapi.yml
+  - type: Documentation
+    url: https://docs.getmonero.org/rpc-library/monerod-rpc/
+  - type: Documentation
+    url: https://www.getmonero.org/resources/developer-guides/daemon-rpc.html
+  - type: Documentation
+    url: https://docs.getmonero.org/rpc-library/wallet-rpc/
+  - type: Documentation
+    url: https://www.getmonero.org/resources/developer-guides/wallet-rpc.html
+- aid: monero:monero-transactions-api
+  name: Monero Transactions API
+  description: Transaction submission and lookup
+  humanURL: https://docs.getmonero.org/rpc-library/monerod-rpc/
+  baseURL: http://localhost:18081
+  tags:
+  - Transactions
+  properties:
+  - type: OpenAPI
+    url: openapi/monero-transactions-api-openapi.yml
+  - type: Documentation
+    url: https://docs.getmonero.org/rpc-library/monerod-rpc/
+  - type: Documentation
+    url: https://www.getmonero.org/resources/developer-guides/daemon-rpc.html
+  - type: Documentation
+    url: https://docs.getmonero.org/rpc-library/wallet-rpc/
+  - type: Documentation
+    url: https://www.getmonero.org/resources/developer-guides/wallet-rpc.html
 common:
   - type: AgenticAccess
     url: agentic-access/monero-agentic-access.yml
