@@ -1,0 +1,28 @@
+{
+  "provider": "monero",
+  "sources": [
+    "monero-blockchain-api-openapi.yml",
+    "monero-json-rpc-api-openapi.yml",
+    "monero-mining-api-openapi.yml",
+    "monero-network-api-openapi.yml",
+    "monero-node-info-api-openapi.yml",
+    "monero-outputs-api-openapi.yml",
+    "monero-transaction-pool-api-openapi.yml",
+    "monero-transactions-api-openapi.yml"
+  ],
+  "outputs": [
+    "monero-blockchain-api-openapi.yml",
+    "monero-json-rpc-api-openapi.yml",
+    "monero-mining-api-openapi.yml",
+    "monero-network-api-openapi.yml",
+    "monero-node-info-api-openapi.yml",
+    "monero-outputs-api-openapi.yml",
+    "monero-transaction-pool-api-openapi.yml",
+    "monero-transactions-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
