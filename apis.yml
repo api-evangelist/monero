@@ -171,6 +171,12 @@ apis:
   - type: Documentation
     url: https://www.getmonero.org/resources/developer-guides/wallet-rpc.html
 common:
+  - type: IssueTracker
+    url: https://github.com/monero-project/monero/issues
+  - type: Releases
+    url: https://github.com/monero-project/monero/releases
+  - type: ContributionGuide
+    url: https://github.com/monero-project/monero/blob/master/docs/CONTRIBUTING.md
   - type: AgenticAccess
     url: agentic-access/monero-agentic-access.yml
   - type: DomainSecurity
