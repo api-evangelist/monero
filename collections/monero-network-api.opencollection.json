@@ -1,0 +1,66 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Monero Daemon RPC Blockchain Network API",
+    "version": "0.18"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Network",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get network statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:18081/get_net_stats"
+          },
+          "docs": "Returns network statistics for the node."
+        },
+        {
+          "info": {
+            "name": "Get bandwidth limits",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:18081/get_limit"
+          },
+          "docs": "Returns current download and upload bandwidth limits."
+        },
+        {
+          "info": {
+            "name": "Get peer list",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:18081/get_peer_list"
+          },
+          "docs": "Returns the peer list connected to the node."
+        },
+        {
+          "info": {
+            "name": "Get public nodes",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:18081/get_public_nodes",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns a list of public nodes available on the network."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,29 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Monero Daemon RPC Blockchain API",
+    "version": "0.18"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Blockchain",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get alternative chain block hashes",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:18081/get_alt_blocks_hashes"
+          },
+          "docs": "Retrieves hashes of the alternative chains seen by the node."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

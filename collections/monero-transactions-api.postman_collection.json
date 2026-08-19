@@ -1,0 +1,305 @@
+{
+  "item": [
+    {
+      "id": "2423bde2-6faf-48bb-ba33-0e4344f4d4a9",
+      "name": "Transactions",
+      "description": {
+        "content": "Transaction submission and lookup",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "18f4c082-b2be-44d6-bdc6-0c28f7f9252d",
+          "name": "Get transactions by IDs",
+          "request": {
+            "name": "Get transactions by IDs",
+            "description": {
+              "content": "Looks up one or more transactions by their IDs.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "get_transactions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"txs_hashes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"decode_as_json\": \"<boolean>\",\n  \"prune\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4e6f8975-1747-4694-a368-74a4805a059b",
+              "name": "Transaction data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "get_transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"txs_hashes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"decode_as_json\": \"<boolean>\",\n  \"prune\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"txs\": [\n    {\n      \"as_hex\": \"string\",\n      \"as_json\": \"string\",\n      \"block_height\": 2221,\n      \"block_timestamp\": 5009,\n      \"confirmations\": 6216,\n      \"double_spend_seen\": true,\n      \"in_pool\": true,\n      \"output_indices\": [\n        5171,\n        4830\n      ],\n      \"prunable_as_hex\": \"string\",\n      \"prunable_hash\": \"string\",\n      \"pruned_as_hex\": \"string\",\n      \"tx_hash\": \"string\"\n    },\n    {\n      \"as_hex\": \"string\",\n      \"as_json\": \"string\",\n      \"block_height\": 3178,\n      \"block_timestamp\": 7019,\n      \"confirmations\": 400,\n      \"double_spend_seen\": true,\n      \"in_pool\": true,\n      \"output_indices\": [\n        5736,\n        6365\n      ],\n      \"prunable_as_hex\": \"string\",\n      \"prunable_hash\": \"string\",\n      \"pruned_as_hex\": \"string\",\n      \"tx_hash\": \"string\"\n    }\n  ],\n  \"txs_as_hex\": [\n    \"string\",\n    \"string\"\n  ],\n  \"txs_as_json\": [\n    \"string\",\n    \"string\"\n  ],\n  \"missed_tx\": [\n    \"string\",\n    \"string\"\n  ],\n  \"status\": \"string\",\n  \"untrusted\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9b33fdfc-988d-43d7-8d1c-1117d6e6e979",
+          "name": "Check if key images are spent",
+          "request": {
+            "name": "Check if key images are spent",
+            "description": {
+              "content": "Checks if outputs have been spent using key images.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "is_key_image_spent"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"key_images\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "734943e9-9f52-47ea-aebf-bdde0716421e",
+              "name": "Spent status for each key image",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "is_key_image_spent"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_images\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"spent_status\": [\n    6743,\n    5984\n  ],\n  \"status\": \"string\",\n  \"untrusted\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cb79aabf-e55e-4df2-823a-9332352dc2eb",
+          "name": "Submit raw transaction",
+          "request": {
+            "name": "Submit raw transaction",
+            "description": {
+              "content": "Broadcasts a raw transaction to the network.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "send_raw_transaction"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tx_as_hex\": \"<string>\",\n  \"do_not_relay\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "550d32de-5ad6-4596-a0b3-4ecdf363506f",
+              "name": "Transaction submission result",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "send_raw_transaction"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tx_as_hex\": \"<string>\",\n  \"do_not_relay\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"double_spend\": true,\n  \"fee_too_low\": true,\n  \"invalid_input\": true,\n  \"invalid_output\": true,\n  \"low_mixin\": true,\n  \"not_rct\": true,\n  \"not_relayed\": false,\n  \"overspend\": true,\n  \"reason\": \"string\",\n  \"status\": \"string\",\n  \"too_big\": true,\n  \"too_few_outputs\": false,\n  \"untrusted\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:18081",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "ed55d221-0f72-43d4-8e8d-129ccdb68995",
+    "name": "Monero Daemon RPC Blockchain Transactions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "JSON-RPC and HTTP API exposed by the monerod daemon for querying blockchain data, managing peer connections, retrieving block and transaction information, estimating fees, submitting mined blocks, and controlling node-level operations on the Monero network.\n\nContact Support:\n Name: Monero Community",
+      "type": "text/plain"
+    }
+  }
+}

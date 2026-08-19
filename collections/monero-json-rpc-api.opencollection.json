@@ -1,0 +1,33 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Monero Daemon RPC Blockchain JSON-RPC API",
+    "version": "0.18"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "JSON-RPC",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "JSON-RPC endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:18081/json_rpc",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "All JSON-RPC methods are dispatched through this single endpoint using the JSON-RPC 2.0 protocol. Set the method field to the desired RPC method name."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

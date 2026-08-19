@@ -1,0 +1,40 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Monero Daemon RPC Blockchain Transaction Pool API",
+    "version": "0.18"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Transaction Pool",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get transaction pool",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:18081/get_transaction_pool"
+          },
+          "docs": "Shows information about valid transactions seen by the node but not yet mined into a block."
+        },
+        {
+          "info": {
+            "name": "Get transaction pool statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:18081/get_transaction_pool_stats"
+          },
+          "docs": "Returns statistics about the transaction pool."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

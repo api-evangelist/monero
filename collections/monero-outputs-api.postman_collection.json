@@ -1,0 +1,123 @@
+{
+  "item": [
+    {
+      "id": "2b4ebc88-05ea-4826-bc42-d0a1e4bcca8c",
+      "name": "Outputs",
+      "description": {
+        "content": "Output and key image operations",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6b8c4920-9f43-45cb-8e9c-5e9004a9806b",
+          "name": "Get outputs",
+          "request": {
+            "name": "Get outputs",
+            "description": {
+              "content": "Get outputs associated with transaction outputs.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "get_outs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"outputs\": [\n    {\n      \"amount\": \"<integer>\",\n      \"index\": \"<integer>\"\n    },\n    {\n      \"amount\": \"<integer>\",\n      \"index\": \"<integer>\"\n    }\n  ],\n  \"get_txid\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f9224d17-aa69-44e3-b58e-09a909409f2c",
+              "name": "Output data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "get_outs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"outputs\": [\n    {\n      \"amount\": \"<integer>\",\n      \"index\": \"<integer>\"\n    },\n    {\n      \"amount\": \"<integer>\",\n      \"index\": \"<integer>\"\n    }\n  ],\n  \"get_txid\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"outs\": [\n    {\n      \"height\": 8481,\n      \"key\": \"string\",\n      \"mask\": \"string\",\n      \"txid\": \"string\",\n      \"unlocked\": false\n    },\n    {\n      \"height\": 4037,\n      \"key\": \"string\",\n      \"mask\": \"string\",\n      \"txid\": \"string\",\n      \"unlocked\": true\n    }\n  ],\n  \"status\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:18081",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "279ec796-e0df-4d30-a5f7-779773b4ff3b",
+    "name": "Monero Daemon RPC Blockchain Outputs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "JSON-RPC and HTTP API exposed by the monerod daemon for querying blockchain data, managing peer connections, retrieving block and transaction information, estimating fees, submitting mined blocks, and controlling node-level operations on the Monero network.\n\nContact Support:\n Name: Monero Community",
+      "type": "text/plain"
+    }
+  }
+}

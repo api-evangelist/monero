@@ -1,0 +1,263 @@
+{
+  "item": [
+    {
+      "id": "baab5001-ea2a-4da5-9aa5-14212ac0d9e0",
+      "name": "Mining",
+      "description": {
+        "content": "Mining control and block template operations",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f774f335-93bf-457f-bcdb-55915c8c6efa",
+          "name": "Start mining on the daemon",
+          "request": {
+            "name": "Start mining on the daemon",
+            "description": {
+              "content": "Starts mining on the daemon.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "start_mining"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"do_background_mining\": \"<boolean>\",\n  \"ignore_battery\": \"<boolean>\",\n  \"miner_address\": \"<string>\",\n  \"threads_count\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f62c00bf-9eb0-4c5e-b8bb-1db679e957d2",
+              "name": "Mining start result",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "start_mining"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"do_background_mining\": \"<boolean>\",\n  \"ignore_battery\": \"<boolean>\",\n  \"miner_address\": \"<string>\",\n  \"threads_count\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8509f619-afba-4ec4-93af-ee18b7d74516",
+          "name": "Stop mining on the daemon",
+          "request": {
+            "name": "Stop mining on the daemon",
+            "description": {
+              "content": "Stops mining on the daemon.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "stop_mining"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c8c41935-86ac-4e46-ab6a-4269225c2851",
+              "name": "Mining stop result",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stop_mining"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f2234177-44f9-419a-a906-f8d18cf01567",
+          "name": "Get mining status",
+          "request": {
+            "name": "Get mining status",
+            "description": {
+              "content": "Gets the mining status of the daemon.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "mining_status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "48f59001-286a-43fc-b0c6-6af490ca1b20",
+              "name": "Current mining status",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mining_status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"active\": true,\n  \"address\": \"string\",\n  \"bg_idle_threshold\": 1259,\n  \"bg_ignore_battery\": true,\n  \"bg_min_idle_seconds\": 6198,\n  \"bg_target\": 931,\n  \"block_reward\": 7764,\n  \"block_target\": 6750,\n  \"difficulty\": 3096,\n  \"difficulty_top64\": 8356,\n  \"is_background_mining_enabled\": true,\n  \"pow_algorithm\": \"string\",\n  \"speed\": 1644,\n  \"threads_count\": 5653,\n  \"wide_difficulty\": \"string\",\n  \"status\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:18081",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "357dc53c-0dc1-4896-b894-e171ce085d14",
+    "name": "Monero Daemon RPC Blockchain Mining API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "JSON-RPC and HTTP API exposed by the monerod daemon for querying blockchain data, managing peer connections, retrieving block and transaction information, estimating fees, submitting mined blocks, and controlling node-level operations on the Monero network.\n\nContact Support:\n Name: Monero Community",
+      "type": "text/plain"
+    }
+  }
+}

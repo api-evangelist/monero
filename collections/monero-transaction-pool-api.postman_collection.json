@@ -1,0 +1,172 @@
+{
+  "item": [
+    {
+      "id": "9eab5a03-511f-41e9-889b-94e97555f4e5",
+      "name": "Transaction Pool",
+      "description": {
+        "content": "Mempool / transaction pool operations",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1b4d090c-5efa-4070-9ade-0d4a1898e207",
+          "name": "Get transaction pool",
+          "request": {
+            "name": "Get transaction pool",
+            "description": {
+              "content": "Shows information about valid transactions seen by the node but not yet mined into a block.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "get_transaction_pool"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ebe66bd2-87f8-403f-996a-3c994febfb8e",
+              "name": "Transaction pool contents",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "get_transaction_pool"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"spent_key_images\": [\n    {\n      \"id_hash\": \"string\",\n      \"txs_hashes\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"id_hash\": \"string\",\n      \"txs_hashes\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ],\n  \"transactions\": [\n    {\n      \"blob_size\": 1636,\n      \"do_not_relay\": true,\n      \"double_spend_seen\": true,\n      \"fee\": 7664,\n      \"id_hash\": \"string\",\n      \"kept_by_block\": true,\n      \"last_failed_height\": 2078,\n      \"last_failed_id_hash\": \"string\",\n      \"last_relayed_time\": 3560,\n      \"max_used_block_height\": 5198,\n      \"max_used_block_id_hash\": \"string\",\n      \"receive_time\": 4615,\n      \"relayed\": true,\n      \"tx_blob\": \"string\",\n      \"tx_json\": \"string\",\n      \"weight\": 8658\n    },\n    {\n      \"blob_size\": 3956,\n      \"do_not_relay\": false,\n      \"double_spend_seen\": true,\n      \"fee\": 6966,\n      \"id_hash\": \"string\",\n      \"kept_by_block\": false,\n      \"last_failed_height\": 9551,\n      \"last_failed_id_hash\": \"string\",\n      \"last_relayed_time\": 2440,\n      \"max_used_block_height\": 8944,\n      \"max_used_block_id_hash\": \"string\",\n      \"receive_time\": 5703,\n      \"relayed\": false,\n      \"tx_blob\": \"string\",\n      \"tx_json\": \"string\",\n      \"weight\": 1128\n    }\n  ],\n  \"status\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fa1da5e3-8a46-4d81-b3d2-9dc7e0d2231c",
+          "name": "Get transaction pool statistics",
+          "request": {
+            "name": "Get transaction pool statistics",
+            "description": {
+              "content": "Returns statistics about the transaction pool.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "get_transaction_pool_stats"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d75ffb0f-9a7e-4132-8881-e9877af89dd1",
+              "name": "Transaction pool statistics",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "get_transaction_pool_stats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"pool_stats\": {\n    \"bytes_max\": 8505,\n    \"bytes_med\": 5719,\n    \"bytes_min\": 3497,\n    \"bytes_total\": 7202,\n    \"fee_total\": 1190,\n    \"histo_98pc\": 1766,\n    \"num_10m\": 8122,\n    \"num_double_spends\": 8269,\n    \"num_failing\": 5346,\n    \"num_not_relayed\": 6864,\n    \"oldest\": 5691,\n    \"txs_total\": 6356\n  },\n  \"status\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:18081",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "7e47ce86-05f2-491d-91a2-7d8101c31eae",
+    "name": "Monero Daemon RPC Blockchain Transaction Pool API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "JSON-RPC and HTTP API exposed by the monerod daemon for querying blockchain data, managing peer connections, retrieving block and transaction information, estimating fees, submitting mined blocks, and controlling node-level operations on the Monero network.\n\nContact Support:\n Name: Monero Community",
+      "type": "text/plain"
+    }
+  }
+}

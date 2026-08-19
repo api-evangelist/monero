@@ -1,0 +1,123 @@
+{
+  "item": [
+    {
+      "id": "e907d772-b128-4338-9833-55ec9e799c70",
+      "name": "JSON-RPC",
+      "description": {
+        "content": "JSON-RPC 2.0 dispatch endpoint",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7507721f-68f7-472e-9878-110a508171f8",
+          "name": "JSON-RPC endpoint",
+          "request": {
+            "name": "JSON-RPC endpoint",
+            "description": {
+              "content": "All JSON-RPC methods are dispatched through this single endpoint using the JSON-RPC 2.0 protocol. Set the method field to the desired RPC method name.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "json_rpc"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"jsonrpc\": \"<string>\",\n  \"id\": \"<string>\",\n  \"method\": \"<string>\",\n  \"params\": \"<object>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cdddb858-804d-4db7-8aed-3f3b91cf3e88",
+              "name": "JSON-RPC response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "json_rpc"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"jsonrpc\": \"<string>\",\n  \"id\": \"0\",\n  \"method\": \"<string>\",\n  \"params\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"jsonrpc\": \"string\",\n  \"result\": {},\n  \"error\": {\n    \"code\": 2291,\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:18081",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "4a0a7642-6f1f-42e8-90d1-2e8341c8ba8b",
+    "name": "Monero Daemon RPC Blockchain JSON-RPC API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "JSON-RPC and HTTP API exposed by the monerod daemon for querying blockchain data, managing peer connections, retrieving block and transaction information, estimating fees, submitting mined blocks, and controlling node-level operations on the Monero network.\n\nContact Support:\n Name: Monero Community",
+      "type": "text/plain"
+    }
+  }
+}

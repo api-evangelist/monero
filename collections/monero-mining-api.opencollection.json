@@ -1,0 +1,55 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Monero Daemon RPC Blockchain Mining API",
+    "version": "0.18"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Mining",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Start mining on the daemon",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:18081/start_mining",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Starts mining on the daemon."
+        },
+        {
+          "info": {
+            "name": "Stop mining on the daemon",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:18081/stop_mining"
+          },
+          "docs": "Stops mining on the daemon."
+        },
+        {
+          "info": {
+            "name": "Get mining status",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:18081/mining_status"
+          },
+          "docs": "Gets the mining status of the daemon."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

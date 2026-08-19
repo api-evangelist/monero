@@ -1,0 +1,29 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Monero Daemon RPC Blockchain Node Info API",
+    "version": "0.18"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Node Info",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get current blockchain height",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:18081/get_height"
+          },
+          "docs": "Returns the current node's blockchain height."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

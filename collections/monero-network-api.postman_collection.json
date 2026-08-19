@@ -1,0 +1,333 @@
+{
+  "item": [
+    {
+      "id": "bd303e73-bf0b-4cad-8719-1f9b659f7abe",
+      "name": "Network",
+      "description": {
+        "content": "Peer and network management",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f3655837-554b-4710-b1ca-1c0464403dc9",
+          "name": "Get network statistics",
+          "request": {
+            "name": "Get network statistics",
+            "description": {
+              "content": "Returns network statistics for the node.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "get_net_stats"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "54256c8c-46c4-479b-8f5c-e9136576c64e",
+              "name": "Network statistics",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "get_net_stats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"start_time\": 8501,\n  \"total_bytes_in\": 3080,\n  \"total_bytes_out\": 2455,\n  \"total_in\": 9173,\n  \"total_out\": 162,\n  \"status\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b71bfcc9-8bc9-46f2-9c39-03b7e805411e",
+          "name": "Get bandwidth limits",
+          "request": {
+            "name": "Get bandwidth limits",
+            "description": {
+              "content": "Returns current download and upload bandwidth limits.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "get_limit"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "23f38dc8-830a-4488-9927-3cd34847106b",
+              "name": "Bandwidth limits",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "get_limit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"limit_down\": 2727,\n  \"limit_up\": 2852,\n  \"status\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8bd362d4-39fd-4873-a02d-cfe8b6452d69",
+          "name": "Get peer list",
+          "request": {
+            "name": "Get peer list",
+            "description": {
+              "content": "Returns the peer list connected to the node.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "get_peer_list"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "78889d8f-8142-493e-88d3-f17564677eb8",
+              "name": "List of peers",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "get_peer_list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"gray_list\": [\n    {\n      \"host\": \"string\",\n      \"id\": 4427,\n      \"ip\": \"string\",\n      \"last_seen\": 5126,\n      \"port\": 6693,\n      \"rpc_credits_per_hash\": 8346,\n      \"rpc_port\": 6100\n    },\n    {\n      \"host\": \"string\",\n      \"id\": 1546,\n      \"ip\": \"string\",\n      \"last_seen\": 8961,\n      \"port\": 3025,\n      \"rpc_credits_per_hash\": 5245,\n      \"rpc_port\": 5903\n    }\n  ],\n  \"white_list\": [\n    {\n      \"host\": \"string\",\n      \"id\": 2201,\n      \"ip\": \"string\",\n      \"last_seen\": 8863,\n      \"port\": 3470,\n      \"rpc_credits_per_hash\": 5626,\n      \"rpc_port\": 871\n    },\n    {\n      \"host\": \"string\",\n      \"id\": 4763,\n      \"ip\": \"string\",\n      \"last_seen\": 1640,\n      \"port\": 3014,\n      \"rpc_credits_per_hash\": 2053,\n      \"rpc_port\": 4622\n    }\n  ],\n  \"status\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "867afb88-7934-4121-b721-dbdef26b3e90",
+          "name": "Get public nodes",
+          "request": {
+            "name": "Get public nodes",
+            "description": {
+              "content": "Returns a list of public nodes available on the network.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "get_public_nodes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"gray\": \"<boolean>\",\n  \"white\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4494761d-a2c2-493b-9c8f-cdc629c132c8",
+              "name": "List of public nodes",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "get_public_nodes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"gray\": \"<boolean>\",\n  \"white\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"gray\": [\n    {\n      \"host\": \"string\",\n      \"last_seen\": 6294,\n      \"rpc_credits_per_hash\": 4960,\n      \"rpc_port\": 2385\n    },\n    {\n      \"host\": \"string\",\n      \"last_seen\": 1931,\n      \"rpc_credits_per_hash\": 595,\n      \"rpc_port\": 8701\n    }\n  ],\n  \"white\": [\n    {\n      \"host\": \"string\",\n      \"last_seen\": 5843,\n      \"rpc_credits_per_hash\": 6181,\n      \"rpc_port\": 4951\n    },\n    {\n      \"host\": \"string\",\n      \"last_seen\": 4661,\n      \"rpc_credits_per_hash\": 7734,\n      \"rpc_port\": 7630\n    }\n  ],\n  \"status\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:18081",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "ef202ea8-2584-4ad4-a2c9-900ea42e46e4",
+    "name": "Monero Daemon RPC Blockchain Network API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "JSON-RPC and HTTP API exposed by the monerod daemon for querying blockchain data, managing peer connections, retrieving block and transaction information, estimating fees, submitting mined blocks, and controlling node-level operations on the Monero network.\n\nContact Support:\n Name: Monero Community",
+      "type": "text/plain"
+    }
+  }
+}

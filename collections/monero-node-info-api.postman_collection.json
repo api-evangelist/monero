@@ -1,0 +1,102 @@
+{
+  "item": [
+    {
+      "id": "936a069b-4434-422a-a811-d84fb922378b",
+      "name": "Node Info",
+      "description": {
+        "content": "Node status and info",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0efa6d8f-1619-45d7-b921-0405d7d09b50",
+          "name": "Get current blockchain height",
+          "request": {
+            "name": "Get current blockchain height",
+            "description": {
+              "content": "Returns the current node's blockchain height.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "get_height"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5ae2d298-af01-486f-8a35-939a208d62fb",
+              "name": "Current blockchain height",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "get_height"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"height\": 9545,\n  \"status\": \"string\",\n  \"untrusted\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:18081",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "a1c7c6f7-a97b-438f-b300-ca360075b25f",
+    "name": "Monero Daemon RPC Blockchain Node Info API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "JSON-RPC and HTTP API exposed by the monerod daemon for querying blockchain data, managing peer connections, retrieving block and transaction information, estimating fees, submitting mined blocks, and controlling node-level operations on the Monero network.\n\nContact Support:\n Name: Monero Community",
+      "type": "text/plain"
+    }
+  }
+}

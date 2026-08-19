@@ -1,0 +1,102 @@
+{
+  "item": [
+    {
+      "id": "018fb5b8-3b9e-4781-9b58-b50b787ec7f3",
+      "name": "Blockchain",
+      "description": {
+        "content": "Blockchain data and block operations",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "aa2502be-30c2-4259-9be9-c9b860563fde",
+          "name": "Get alternative chain block hashes",
+          "request": {
+            "name": "Get alternative chain block hashes",
+            "description": {
+              "content": "Retrieves hashes of the alternative chains seen by the node.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "get_alt_blocks_hashes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b440231c-2461-4cae-a1a1-7f2a0c161cfb",
+              "name": "Alternative block hashes",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "get_alt_blocks_hashes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"blks_hashes\": [\n    \"string\",\n    \"string\"\n  ],\n  \"status\": \"string\",\n  \"untrusted\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:18081",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "ffbde7c4-436d-4085-8a83-ec116aeb67d9",
+    "name": "Monero Daemon RPC Blockchain API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "JSON-RPC and HTTP API exposed by the monerod daemon for querying blockchain data, managing peer connections, retrieving block and transaction information, estimating fees, submitting mined blocks, and controlling node-level operations on the Monero network.\n\nContact Support:\n Name: Monero Community",
+      "type": "text/plain"
+    }
+  }
+}
