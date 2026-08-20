@@ -22,6 +22,14 @@ tags:
   - Privacy
   - Blockchain
   - JSON-RPC
+  - Wallets
+  - Mining
+  - Transaction
+tags_raw:
+  - Cryptocurrency
+  - Privacy
+  - Blockchain
+  - JSON-RPC
   - Wallet
   - Mining
   - Transactions
@@ -158,6 +166,8 @@ apis:
   humanURL: https://docs.getmonero.org/rpc-library/monerod-rpc/
   baseURL: http://localhost:18081
   tags:
+  - Transaction
+  tags_raw:
   - Transactions
   properties:
   - type: OpenAPI
