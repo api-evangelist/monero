@@ -107,6 +107,8 @@ apis:
   humanURL: https://docs.getmonero.org/rpc-library/monerod-rpc/
   baseURL: http://localhost:18081
   tags:
+  - Networks
+  tags_raw:
   - Network
   properties:
   - type: OpenAPI
