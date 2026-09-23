@@ -1,14 +1,7 @@
 {
   "provider": "monero",
   "sources": [
-    "monero-blockchain-api-openapi.yml",
-    "monero-json-rpc-api-openapi.yml",
-    "monero-mining-api-openapi.yml",
-    "monero-network-api-openapi.yml",
-    "monero-node-info-api-openapi.yml",
-    "monero-outputs-api-openapi.yml",
-    "monero-transaction-pool-api-openapi.yml",
-    "monero-transactions-api-openapi.yml"
+    "_original/monero-daemon-rpc-openapi.json"
   ],
   "outputs": [
     "monero-blockchain-api-openapi.yml",
@@ -23,6 +16,21 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "1 archived document(s) dropped as subsets of other archived documents",
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "monero-daemon-rpc-openapi.json: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "_original/monero-wallet-rpc-openapi.json: archived document superseded by a larger archived document",
+    "monero-blockchain-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "monero-json-rpc-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "monero-mining-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "monero-network-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "monero-node-info-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "monero-outputs-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "monero-transaction-pool-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "monero-transactions-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
