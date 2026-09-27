@@ -2,6 +2,10 @@ name: Monero
 description: Monero is a privacy-focused, decentralized cryptocurrency providing JSON-RPC APIs for wallet management, transaction creation, mining coordination, and blockchain data access on the Monero (XMR) network. The daemon RPC exposes node and chain operations while the wallet RPC provides comprehensive wallet and transfer management.
 deliveryModel:
   model: unknown
+  license_evidence:
+    repo: monero-project/monero
+    spdx: NOASSERTION
+    stars: 10873
   open_source: unknown
   commercial: true
   callable_host: false
@@ -11,7 +15,7 @@ deliveryModel:
   - openapi
   - pricing
   - repository-unlicensed
-  generated: '2026-08-28'
+  generated: '2026-09-25'
   method: derived
 accessModel:
   pricing: free
