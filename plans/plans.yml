@@ -1,3 +1,7 @@
+# Provenance stamped 2026-10-07 (roadmap#943): written by an API Evangelist sweep (undated — the file carries no date and git cannot supply one), not
+# harvested from the provider. `method: generated` so the economics campaign may replace it with a
+# dated, verbatim transcription; every figure below is unverified until it does.
+method: generated
 plans:
   - name: Open Source / Self-Hosted
     description: The Monero daemon (monerod) and wallet RPC (monero-wallet-rpc) are free, open-source software released under the BSD 3-Clause license. Anyone can run the full node and wallet RPC locally or on their own infrastructure at no cost.
@@ -70,3 +74,34 @@ plans:
       P2Pool requires running both monerod and the P2Pool software. It offers the best
       decentralization properties for Monero mining. Official documentation available at
       https://docs.getmonero.org/interacting/monero-blockchain-export-reference/.
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - free
+  units: []
+  plans:
+  - name: Open Source / Self-Hosted
+    access: other
+    model: free
+    model_how: derived
+    units: []
+    periods: []
+  - name: Third-Party Node / Remote Node
+    access: other
+    model: free
+    model_how: derived
+    units: []
+    periods: []
+  - name: Mining (Solo)
+    access: other
+    model: free
+    model_how: derived
+    units: []
+    periods: []
+  - name: Mining (P2Pool)
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
