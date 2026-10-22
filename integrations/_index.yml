@@ -33,3 +33,33 @@
     detected: '2026-10-20'
   status: not-a-workflow
   arazzo: null
+- slug: monero-flathub
+  label: Flathub
+  partner_name: Flathub
+  category: Linux desktop app (Flathub)
+  type: marketplace
+  marketplace: flathub
+  channel: partner-built
+  evidence: https://flathub.org/apps/org.getmonero.Monero
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: 'Flathub (flathub.org/api/v2/appstream/<app-id>: developer_name, urls.homepage, flathub::verification::*)'
+    spec_file: null
+    role: flathub-verified-publisher
+    registered_name: The Monero Project
+    register_id: https://flathub.org/api/v2/appstream/org.getmonero.Monero
+    matched_domain: getmonero.org
+    matched_by: domain
+    matched_name: The Monero Project
+    verification_method: website
+    verified_website: getmonero.org
+    app_id_domain: getmonero.org
+    signal_note: ONE edge per provider for the store; listing alone = participation. Only apps whose Flathub verification
+      is a domain proof (website / dns) on the provider's own domain, with the reverse-DNS app id agreeing; app
+      counts are context, never counted. Unverified (community repackage) and account-verified apps are held. No
+      Flathub repo in all/*, so no platform-side edge exists to mirror.
+    detected_by: sweep-flathub-linux-app-publishers.py
+    detected: '2026-10-22'
+  status: not-a-workflow
+  arazzo: null
