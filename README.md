@@ -66,21 +66,145 @@
 
 Monero is a privacy-focused, decentralized cryptocurrency providing JSON-RPC APIs for wallet management, transaction creation, mining coordination, and blockchain data access on the Monero (XMR) network. The daemon RPC exposes node and chain operations while the wallet RPC provides comprehensive wallet and transfer management.
 
-## APIs
+**Areas:** Cryptocurrency · Privacy · Blockchain · JSON-RPC · Wallets · Mining · Transaction
 
-- **Monero Daemon RPC API** - JSON-RPC and HTTP API exposed by monerod for querying blockchain data, managing peers, retrieving blocks and transactions, estimating fees, submitting mined blocks, and controlling node-level operations.
-- **Monero Wallet RPC API** - JSON-RPC API exposed by monero-wallet-rpc for creating wallets, sending and receiving XMR, generating transaction proofs, handling multisignature workflows, and managing wallet synchronization.
+## Monero on APIs.io
 
-## Links
+Everything profiled for Monero is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/monero/](https://apis.io/providers/monero/)** — or go straight to one of the APIs or properties below.
+
+### APIs (8)
+
+- [Monero Blockchain API](https://apis.io/apis/monero/monero-blockchain-api/) — Blockchain data and block operations
+- [Monero JSON-RPC API](https://apis.io/apis/monero/monero-json-rpc-api/) — JSON-RPC 2.0 dispatch endpoint
+- [Monero Mining API](https://apis.io/apis/monero/monero-mining-api/) — Mining control and block template operations
+- [Monero Network API](https://apis.io/apis/monero/monero-network-api/) — Peer and network management
+- [Monero Node Info API](https://apis.io/apis/monero/monero-node-info-api/) — Node status and info
+- [Monero Outputs API](https://apis.io/apis/monero/monero-outputs-api/) — Output and key image operations
+- [Monero Transaction Pool API](https://apis.io/apis/monero/monero-transaction-pool-api/) — Mempool / transaction pool operations
+- [Monero Transactions API](https://apis.io/apis/monero/monero-transactions-api/) — Transaction submission and lookup
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Monero Agentic Access](https://apis.io/agentic-access/monero/monero-agentic-access/)
+
+#### JSON Schema (1)
+
+The data models the API reads and writes.
+
+- [Monero API Types](https://apis.io/schemas/monero/monero-types/)
+
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Monero Context](https://apis.io/jsonld/monero/monero-context/)
+
+#### Collections (8)
+
+Postman and Open Collection request collections.
+
+- [Monero Daemon RPC Blockchain API](https://apis.io/collections/monero/open-monero-blockchain-api/)
+- [Monero Daemon RPC Blockchain JSON-RPC API](https://apis.io/collections/monero/open-monero-json-rpc-api/)
+- [Monero Daemon RPC Blockchain Mining API](https://apis.io/collections/monero/open-monero-mining-api/)
+- [Monero Daemon RPC Blockchain Network API](https://apis.io/collections/monero/open-monero-network-api/)
+- [Monero Daemon RPC Blockchain Node Info API](https://apis.io/collections/monero/open-monero-node-info-api/)
+- [Monero Daemon RPC Blockchain Outputs API](https://apis.io/collections/monero/open-monero-outputs-api/)
+- [Monero Daemon RPC Blockchain Transaction Pool API](https://apis.io/collections/monero/open-monero-transaction-pool-api/)
+- [Monero Daemon RPC Blockchain Transactions API](https://apis.io/collections/monero/open-monero-transactions-api/)
+
+#### Governance rules (1)
+
+Spectral rulesets for the provider's contracts.
+
+- [Monero — jsonschema rules](https://apis.io/rules/monero/monero-jsonschema-spectral-rules/)
+
+#### Security (1)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Monero Domain Security](https://apis.io/security/monero/monero-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Plans](https://apis.io/plans/monero/plans/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Rate Limits](https://apis.io/rate-limits/monero/rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Finops](https://apis.io/finops/monero/finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://www.getmonero.org/)
-- [Developer Guides](https://www.getmonero.org/resources/developer-guides/)
-- [Daemon RPC Documentation](https://docs.getmonero.org/rpc-library/monerod-rpc/)
-- [Wallet RPC Documentation](https://docs.getmonero.org/rpc-library/wallet-rpc/)
-- [GitHub](https://github.com/monero-project/monero)
-- [Monero Ecosystem](https://github.com/monero-ecosystem)
-- [Monero Stack Exchange](https://monero.stackexchange.com)
+- [Documentation](https://docs.getmonero.org/)
+- [Blog](https://www.getmonero.org/blog/)
 
-## Maintainers
+## API Evangelist rating
 
-**API Evangelist** - [https://apievangelist.com](https://apievangelist.com)
+**Kin Score 25.8** — emerging · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 57.1 |
+| Contract quality | 46.1 |
+| Contract governance | 9.8 |
+| Operational transparency | 21.1 |
+| Developer ergonomics | 26.2 |
+| Access clarity | 7.9 |
+
+**Agent readiness 17.3** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | — |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 9.8** — Payments
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/monero/](https://apis.io/providers/monero/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Monero: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/monero/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
